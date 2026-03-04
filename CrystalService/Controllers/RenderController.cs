@@ -13,10 +13,11 @@ namespace CrystalService.Controllers
 {
     public class RenderController : ApiController
     {
-        private static readonly string BaseDir = @"C:\CrystalService";
-        private static readonly string RptPath = Path.Combine(BaseDir, "Reportes", "Factura01.rpt");
-        private static readonly string AssetsDir = Path.Combine(BaseDir, "Assets");
-        private static readonly string TempDir = Path.Combine(BaseDir, "Temp");
+        private static readonly string BaseDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "PlantillasPDF");
+        //private static readonly string BaseDir = @"C:/API-Facturacion/FACTURACION_ELECTRONICA_SRI/PlantillasPDF/";
+        //private static readonly string RptPath = Path.Combine(BaseDir, "Factura01.rpt");
+        //private static readonly string AssetsDir = Path.Combine(BaseDir, "Assets");
+        //private static readonly string TempDir = Path.Combine(BaseDir, "Temp");
 
         [HttpPost]
         [Route("render/factura01")]
@@ -24,6 +25,10 @@ namespace CrystalService.Controllers
         {
             try
             {
+                string RptPath = Path.Combine(BaseDir, request.infoTributaria.ruc, "Factura01.rpt");
+                string AssetsDir = Path.Combine(BaseDir, request.infoTributaria.ruc, "Assets");
+                string TempDir = Path.Combine(BaseDir, request.infoTributaria.ruc, "Temp");
+
                 var renderer = new CrystalFacturaRenderer(RptPath, AssetsDir, TempDir);
                 byte[] pdf = renderer.RenderFactura01(request);
 

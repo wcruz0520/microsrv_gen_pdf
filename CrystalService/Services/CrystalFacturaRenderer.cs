@@ -37,7 +37,7 @@ namespace CrystalService.Services
             // 2) Imágenes
             string logoPath = !string.IsNullOrWhiteSpace(req?.LogoPathOverride)
                 ? req.LogoPathOverride
-                : Path.Combine(_assetsDir, "logo.png");
+                : Path.Combine(_assetsDir, req.campoAdicional1);
 
             // QR y barcode con clave de acceso
             string clave = req?.infoTributaria?.claveAcceso ?? "";
