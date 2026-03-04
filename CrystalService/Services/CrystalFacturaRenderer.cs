@@ -37,7 +37,7 @@ namespace CrystalService.Services
                 : Path.Combine(_assetsDir, "logo.png");
 
             // QR y barcode con clave de acceso
-            string clave = req?.Cabecera?.ClaveAcceso ?? "";
+            string clave = req?.infoTributaria?.claveAcceso ?? "";
             string qrPath = CodeImageService.GenerateQrPng(clave, _tempDir);
             string barPath = CodeImageService.GenerateCode128Png(clave, _tempDir);
 
