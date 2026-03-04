@@ -28,8 +28,11 @@ namespace CrystalService.Services
             if (!File.Exists(_rptPath))
                 throw new FileNotFoundException("No existe el .rpt", _rptPath);
 
+            DataSet dsFact = new DataSet();
+            dsFact.ReadXmlSchema(Path.Combine("Fomatos", "Factura01.xsd"));
+
             // 1) Dataset
-            DataSet ds = FacturaDataSetBuilder.Build(req);
+            DataSet ds = FacturaDataSetBuilder.FillFactura01DataSet(dsFact, req);
 
             // 2) Imágenes
             string logoPath = !string.IsNullOrWhiteSpace(req?.LogoPathOverride)

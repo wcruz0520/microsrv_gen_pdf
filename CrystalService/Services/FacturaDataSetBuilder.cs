@@ -1,67 +1,63 @@
 ﻿using CrystalService.Models;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
+using System.Linq;
+using System.Web;
 
 namespace CrystalService.Services
 {
-    /// <summary>
-    /// Construye el DataSet que consumirá el .rpt de Crystal para Factura 01, a partir del JSON (FacturaRenderRequest).
-    /// Diseña tu .rpt con estas tablas y campos (nombres exactos):
-    /// - InfoTributaria (1)
-    /// - InfoFactura (1)
-    /// - TotalConImpuestos (N)
-    /// - Pagos (N)
-    /// - Detalles (N)
-    /// - DetallesAdicionales (N) -> FK detalleId
-    /// - DetallesImpuestos (N)   -> FK detalleId
-    /// - Retenciones (N)
-    /// - InfoAdicional (N)
-    /// - Reembolsos (N) -> PK reembolsoId
-    /// - ReembolsoDetalleImpuestos (N) -> FK reembolsoId
-    /// - CamposAdicionales (1)
-    /// </summary>
     public static class FacturaDataSetBuilder
     {
-        public static DataSet Build(FacturaRenderRequest req)
+        /// <summary>
+        /// Llena un DataSet (ya creado por ti) con la data del request.
+        /// No crea el esquema: solo llena las tablas.
+        ///
+        /// Tablas esperadas (nombres exactos):
+        /// - InfoTributaria
+        /// - InfoFactura
+        /// - TotalConImpuestos
+        /// - Pagos
+        /// - Detalles
+        /// - DetallesAdicionales
+        /// - DetallesImpuestos
+        /// - Retenciones
+        /// - InfoAdicional
+        /// - Reembolsos
+        /// - ReembolsoDetalleImpuestos
+        /// - CamposAdicionales
+        ///
+        /// Relaciones recomendadas (si las tienes):
+        /// - Detalles(detalleId) -> DetallesAdicionales(detalleId)
+        /// - Detalles(detalleId) -> DetallesImpuestos(detalleId)
+        /// - Reembolsos(reembolsoId) -> ReembolsoDetalleImpuestos(reembolsoId)
+        /// </summary>
+        public static DataSet FillFactura01DataSet(DataSet ds, FacturaRenderRequest req)
         {
+            if (ds == null) throw new ArgumentNullException(nameof(ds));
             if (req == null) throw new ArgumentNullException(nameof(req));
 
-            var ds = new DataSet("Factura01DS");
+            // Limpia tablas si quieres comportamiento "fresh" por request
+            ClearIfExists(ds, "InfoTributaria");
+            ClearIfExists(ds, "InfoFactura");
+            ClearIfExists(ds, "TotalConImpuestos");
+            ClearIfExists(ds, "Pagos");
+            ClearIfExists(ds, "Detalles");
+            ClearIfExists(ds, "DetallesAdicionales");
+            ClearIfExists(ds, "DetallesImpuestos");
+            ClearIfExists(ds, "Retenciones");
+            ClearIfExists(ds, "InfoAdicional");
+            ClearIfExists(ds, "Reembolsos");
+            ClearIfExists(ds, "ReembolsoDetalleImpuestos");
+            ClearIfExists(ds, "CamposAdicionales");
 
-            // -------- Schema
-            var tInfoTrib = CreateInfoTributaria();
-            var tInfoFact = CreateInfoFactura();
-            var tTotImp = CreateTotalConImpuestos();
-            var tPagos = CreatePagos();
-            var tDetalles = CreateDetalles();
-            var tDetAdd = CreateDetallesAdicionales();
-            var tDetImp = CreateDetallesImpuestos();
-            var tRet = CreateRetenciones();
-            var tInfoAd = CreateInfoAdicional();
-            var tReemb = CreateReembolsos();
-            var tReembImp = CreateReembolsoDetalleImpuestos();
-            var tCampos = CreateCamposAdicionales();
-
-            ds.Tables.AddRange(new[]
-            {
-                tInfoTrib, tInfoFact, tTotImp, tPagos,
-                tDetalles, tDetAdd, tDetImp,
-                tRet, tInfoAd,
-                tReemb, tReembImp,
-                tCampos
-            });
-
-            // (Opcional) Relaciones
-            ds.Relations.Add("Detalles_DetallesAdicionales", tDetalles.Columns["detalleId"], tDetAdd.Columns["detalleId"], false);
-            ds.Relations.Add("Detalles_DetallesImpuestos", tDetalles.Columns["detalleId"], tDetImp.Columns["detalleId"], false);
-            ds.Relations.Add("Reembolsos_ReembolsoDetalleImpuestos", tReemb.Columns["reembolsoId"], tReembImp.Columns["reembolsoId"], false);
-
-            // -------- Fill
-
-            // InfoTributaria (1)
+            // 1) InfoTributaria (1 fila)
             if (req.infoTributaria != null)
             {
-                var r = tInfoTrib.NewRow();
+                var t = RequireTable(ds, "InfoTributaria");
+                var r = t.NewRow();
+
                 Set(r, "ambiente", req.infoTributaria.ambiente);
                 Set(r, "tipoEmision", req.infoTributaria.tipoEmision);
                 Set(r, "claveAcceso", req.infoTributaria.claveAcceso);
@@ -76,90 +72,99 @@ namespace CrystalService.Services
                 Set(r, "diaEmission", req.infoTributaria.diaEmission);
                 Set(r, "mesEmission", req.infoTributaria.mesEmission);
                 Set(r, "anioEmission", req.infoTributaria.anioEmission);
-                tInfoTrib.Rows.Add(r);
+
+                t.Rows.Add(r);
             }
 
-            // InfoFactura (1)
+            // 2) InfoFactura (1 fila) + TotalConImpuestos + Pagos + Reembolsos
             if (req.infoFactura != null)
             {
-                var r = tInfoFact.NewRow();
-                Set(r, "fechaEmision", req.infoFactura.fechaEmision);
-                Set(r, "dirEstablecimiento", req.infoFactura.dirEstablecimiento);
-                Set(r, "contribuyenteEspecial", req.infoFactura.contribuyenteEspecial);
-                Set(r, "obligadoContabilidad", req.infoFactura.obligadoContabilidad);
-                Set(r, "tipoIdentificacionComprador", req.infoFactura.tipoIdentificacionComprador);
-                Set(r, "guiaRemision", req.infoFactura.guiaRemision);
-                Set(r, "razonSocialComprador", req.infoFactura.razonSocialComprador);
-                Set(r, "identificacionComprador", req.infoFactura.identificacionComprador);
-                Set(r, "direccionComprador", req.infoFactura.direccionComprador);
-                Set(r, "totalSinImpuestos", req.infoFactura.totalSinImpuestos);
-                Set(r, "totalDescuento", req.infoFactura.totalDescuento);
-                Set(r, "propina", req.infoFactura.propina);
-                Set(r, "importeTotal", req.infoFactura.importeTotal);
-                Set(r, "moneda", req.infoFactura.moneda);
+                // InfoFactura (1)
+                var tInfo = RequireTable(ds, "InfoFactura");
+                var rInfo = tInfo.NewRow();
 
-                Set(r, "valorRetIva", req.infoFactura.valorRetIva);
-                Set(r, "valorRetRenta", req.infoFactura.valorRetRenta);
-                Set(r, "comercioExterior", req.infoFactura.comercioExterior);
-                Set(r, "IncoTermFactura", req.infoFactura.IncoTermFactura);
-                Set(r, "lugarIncoTerm", req.infoFactura.lugarIncoTerm);
-                Set(r, "paisOrigen", req.infoFactura.paisOrigen);
-                Set(r, "puertoEmbarque", req.infoFactura.puertoEmbarque);
-                Set(r, "paisDestino", req.infoFactura.paisDestino);
-                Set(r, "paisAdquisicion", req.infoFactura.paisAdquisicion);
-                Set(r, "incoTermTotalSinImpuestos", req.infoFactura.incoTermTotalSinImpuestos);
-                Set(r, "fleteInternacional", req.infoFactura.fleteInternacional);
-                Set(r, "seguroInternacional", req.infoFactura.seguroInternacional);
-                Set(r, "gastosAduaneros", req.infoFactura.gastosAduaneros);
-                Set(r, "gastosTransporteOtros", req.infoFactura.gastosTransporteOtros);
-                Set(r, "codDocReembolso", req.infoFactura.codDocReembolso);
-                Set(r, "totalComprobantesReembolso", req.infoFactura.totalComprobantesReembolso);
-                Set(r, "totalBaseImponibleReembolso", req.infoFactura.totalBaseImponibleReembolso);
-                Set(r, "totalImpuestoReembolso", req.infoFactura.totalImpuestoReembolso);
+                Set(rInfo, "fechaEmision", req.infoFactura.fechaEmision);
+                Set(rInfo, "dirEstablecimiento", req.infoFactura.dirEstablecimiento);
+                Set(rInfo, "contribuyenteEspecial", req.infoFactura.contribuyenteEspecial);
+                Set(rInfo, "obligadoContabilidad", req.infoFactura.obligadoContabilidad);
+                Set(rInfo, "tipoIdentificacionComprador", req.infoFactura.tipoIdentificacionComprador);
+                Set(rInfo, "guiaRemision", req.infoFactura.guiaRemision);
+                Set(rInfo, "razonSocialComprador", req.infoFactura.razonSocialComprador);
+                Set(rInfo, "identificacionComprador", req.infoFactura.identificacionComprador);
+                Set(rInfo, "direccionComprador", req.infoFactura.direccionComprador);
+                Set(rInfo, "totalSinImpuestos", req.infoFactura.totalSinImpuestos);
+                Set(rInfo, "totalDescuento", req.infoFactura.totalDescuento);
+                Set(rInfo, "propina", req.infoFactura.propina);
+                Set(rInfo, "importeTotal", req.infoFactura.importeTotal);
+                Set(rInfo, "moneda", req.infoFactura.moneda);
 
-                tInfoFact.Rows.Add(r);
+                Set(rInfo, "valorRetIva", req.infoFactura.valorRetIva);
+                Set(rInfo, "valorRetRenta", req.infoFactura.valorRetRenta);
+                Set(rInfo, "comercioExterior", req.infoFactura.comercioExterior);
+                Set(rInfo, "IncoTermFactura", req.infoFactura.IncoTermFactura);
+                Set(rInfo, "lugarIncoTerm", req.infoFactura.lugarIncoTerm);
+                Set(rInfo, "paisOrigen", req.infoFactura.paisOrigen);
+                Set(rInfo, "puertoEmbarque", req.infoFactura.puertoEmbarque);
+                Set(rInfo, "paisDestino", req.infoFactura.paisDestino);
+                Set(rInfo, "paisAdquisicion", req.infoFactura.paisAdquisicion);
+                Set(rInfo, "incoTermTotalSinImpuestos", req.infoFactura.incoTermTotalSinImpuestos);
+                Set(rInfo, "fleteInternacional", req.infoFactura.fleteInternacional);
+                Set(rInfo, "seguroInternacional", req.infoFactura.seguroInternacional);
+                Set(rInfo, "gastosAduaneros", req.infoFactura.gastosAduaneros);
+                Set(rInfo, "gastosTransporteOtros", req.infoFactura.gastosTransporteOtros);
+                Set(rInfo, "codDocReembolso", req.infoFactura.codDocReembolso);
+                Set(rInfo, "totalComprobantesReembolso", req.infoFactura.totalComprobantesReembolso);
+                Set(rInfo, "totalBaseImponibleReembolso", req.infoFactura.totalBaseImponibleReembolso);
+                Set(rInfo, "totalImpuestoReembolso", req.infoFactura.totalImpuestoReembolso);
 
-                // TotalConImpuestos
+                tInfo.Rows.Add(rInfo);
+
+                // TotalConImpuestos (N)
                 if (req.infoFactura.totalConImpuestos != null)
                 {
+                    var t = RequireTable(ds, "TotalConImpuestos");
                     foreach (var x in req.infoFactura.totalConImpuestos)
                     {
                         if (x == null) continue;
-                        var rr = tTotImp.NewRow();
-                        Set(rr, "codigo", x.codigo);
-                        Set(rr, "codigoPorcentaje", x.codigoPorcentaje);
-                        Set(rr, "baseImponible", x.baseImponible);
-                        Set(rr, "valor", x.valor);
-                        tTotImp.Rows.Add(rr);
+                        var r = t.NewRow();
+                        Set(r, "codigo", x.codigo);
+                        Set(r, "codigoPorcentaje", x.codigoPorcentaje);
+                        Set(r, "baseImponible", x.baseImponible);
+                        Set(r, "valor", x.valor);
+                        t.Rows.Add(r);
                     }
                 }
 
-                // Pagos
+                // Pagos (N)
                 if (req.infoFactura.pagos != null)
                 {
+                    var t = RequireTable(ds, "Pagos");
                     foreach (var p in req.infoFactura.pagos)
                     {
                         if (p == null) continue;
-                        var rr = tPagos.NewRow();
-                        Set(rr, "formaPago", p.formaPago);
-                        Set(rr, "total", p.total);
-                        Set(rr, "plazo", p.plazo);
-                        Set(rr, "unidadTiempo", p.unidadTiempo);
-                        tPagos.Rows.Add(rr);
+                        var r = t.NewRow();
+                        Set(r, "formaPago", p.formaPago);
+                        Set(r, "total", p.total);
+                        Set(r, "plazo", p.plazo);
+                        Set(r, "unidadTiempo", p.unidadTiempo);
+                        t.Rows.Add(r);
                     }
                 }
 
-                // Reembolsos + detalle impuestos
-                int reembolsoId = 0;
+                // Reembolsos (N) + ReembolsoDetalleImpuestos (N hijo)
+                var reembolsoId = 0;
                 if (req.infoFactura.reembolsos != null)
                 {
+                    var tReemb = RequireTable(ds, "Reembolsos");
+                    var tReembImp = RequireTable(ds, "ReembolsoDetalleImpuestos");
+
                     foreach (var re in req.infoFactura.reembolsos)
                     {
                         if (re == null) continue;
                         reembolsoId++;
 
                         var rr = tReemb.NewRow();
-                        rr["reembolsoId"] = reembolsoId;
+                        Set(rr, "reembolsoId", reembolsoId);
                         Set(rr, "tipoIdentificacionProveedorReembolso", re.tipoIdentificacionProveedorReembolso);
                         Set(rr, "identificacionProveedorReembolso", re.identificacionProveedorReembolso);
                         Set(rr, "codPaisPagoProveedorReembolso", re.codPaisPagoProveedorReembolso);
@@ -178,7 +183,7 @@ namespace CrystalService.Services
                             {
                                 if (imp == null) continue;
                                 var ri = tReembImp.NewRow();
-                                ri["reembolsoId"] = reembolsoId;
+                                Set(ri, "reembolsoId", reembolsoId);
                                 Set(ri, "codigo", imp.codigo);
                                 Set(ri, "codigoPorcentaje", imp.codigoPorcentaje);
                                 Set(ri, "baseImponibleReembolso", imp.baseImponibleReembolso);
@@ -191,25 +196,29 @@ namespace CrystalService.Services
                 }
             }
 
-            // Detalles + hijos
-            int detalleId = 0;
+            // 3) Detalles (N) + hijos
+            var detalleId = 0;
             if (req.detalles != null)
             {
+                var tDet = RequireTable(ds, "Detalles");
+                var tDetAdd = RequireTable(ds, "DetallesAdicionales");
+                var tDetImp = RequireTable(ds, "DetallesImpuestos");
+
                 foreach (var d in req.detalles)
                 {
                     if (d == null) continue;
                     detalleId++;
 
-                    var rr = tDetalles.NewRow();
-                    rr["detalleId"] = detalleId;
-                    Set(rr, "codigoPrincipal", d.codigoPrincipal);
-                    Set(rr, "codigoAuxiliar", d.codigoAuxiliar);
-                    Set(rr, "descripcion", d.descripcion);
-                    rr["cantidad"] = d.cantidad;
-                    Set(rr, "precioUnitario", d.precioUnitario);
-                    Set(rr, "descuento", d.descuento);
-                    Set(rr, "precioTotalSinImpuesto", d.precioTotalSinImpuesto);
-                    tDetalles.Rows.Add(rr);
+                    var r = tDet.NewRow();
+                    Set(r, "detalleId", detalleId);
+                    Set(r, "codigoPrincipal", d.codigoPrincipal);
+                    Set(r, "codigoAuxiliar", d.codigoAuxiliar);
+                    Set(r, "descripcion", d.descripcion);
+                    Set(r, "cantidad", d.cantidad); // decimal
+                    Set(r, "precioUnitario", d.precioUnitario);
+                    Set(r, "descuento", d.descuento);
+                    Set(r, "precioTotalSinImpuesto", d.precioTotalSinImpuesto);
+                    tDet.Rows.Add(r);
 
                     if (d.detallesAdicionales != null)
                     {
@@ -217,7 +226,7 @@ namespace CrystalService.Services
                         {
                             if (a == null) continue;
                             var ra = tDetAdd.NewRow();
-                            ra["detalleId"] = detalleId;
+                            Set(ra, "detalleId", detalleId);
                             Set(ra, "nombre", a.nombre);
                             Set(ra, "valor", a.valor);
                             tDetAdd.Rows.Add(ra);
@@ -230,7 +239,7 @@ namespace CrystalService.Services
                         {
                             if (i == null) continue;
                             var ri = tDetImp.NewRow();
-                            ri["detalleId"] = detalleId;
+                            Set(ri, "detalleId", detalleId);
                             Set(ri, "codigo", i.codigo);
                             Set(ri, "codigoPorcentaje", i.codigoPorcentaje);
                             Set(ri, "baseImponible", i.baseImponible);
@@ -242,159 +251,69 @@ namespace CrystalService.Services
                 }
             }
 
-            // Retenciones
+            // 4) Retenciones
             if (req.retenciones != null)
             {
+                var t = RequireTable(ds, "Retenciones");
                 foreach (var x in req.retenciones)
                 {
                     if (x == null) continue;
-                    var rr = tRet.NewRow();
-                    Set(rr, "codigo", x.codigo);
-                    Set(rr, "codigoPorcentaje", x.codigoPorcentaje);
-                    Set(rr, "tarifa", x.tarifa);
-                    Set(rr, "valor", x.valor);
-                    tRet.Rows.Add(rr);
+                    var r = t.NewRow();
+                    Set(r, "codigo", x.codigo);
+                    Set(r, "codigoPorcentaje", x.codigoPorcentaje);
+                    Set(r, "tarifa", x.tarifa);
+                    Set(r, "valor", x.valor);
+                    t.Rows.Add(r);
                 }
             }
 
-            // InfoAdicional
+            // 5) InfoAdicional
             if (req.infoAdicional != null)
             {
+                var t = RequireTable(ds, "InfoAdicional");
                 foreach (var x in req.infoAdicional)
                 {
                     if (x == null) continue;
-                    var rr = tInfoAd.NewRow();
-                    Set(rr, "nombre", x.nombre);
-                    Set(rr, "valor", x.valor);
-                    tInfoAd.Rows.Add(rr);
+                    var r = t.NewRow();
+                    Set(r, "nombre", x.nombre);
+                    Set(r, "valor", x.valor);
+                    t.Rows.Add(r);
                 }
             }
 
-            // CamposAdicionales
+            // 6) CamposAdicionales (1 fila)
             {
-                var rr = tCampos.NewRow();
-                Set(rr, "campoAdicional1", req.campoAdicional1);
-                Set(rr, "campoAdicional2", req.campoAdicional2);
-                tCampos.Rows.Add(rr);
+                var t = RequireTable(ds, "CamposAdicionales");
+                var r = t.NewRow();
+                Set(r, "campoAdicional1", req.campoAdicional1);
+                Set(r, "campoAdicional2", req.campoAdicional2);
+                t.Rows.Add(r);
             }
 
             ds.AcceptChanges();
             return ds;
         }
 
-        // -------- Schema creators
+        // ----------------- Helpers -----------------
 
-        private static DataTable CreateInfoTributaria()
+        private static void ClearIfExists(DataSet ds, string tableName)
         {
-            var t = new DataTable("InfoTributaria");
-            AddStringCols(t, "ambiente", "tipoEmision", "claveAcceso", "razonSocial", "nombreComercial", "ruc",
-                "codDoc", "estab", "ptoEmi", "secuencial", "dirMatriz", "diaEmission", "mesEmission", "anioEmission");
-            return t;
+            var t = ds.Tables.Contains(tableName) ? ds.Tables[tableName] : null;
+            t?.Rows.Clear();
         }
 
-        private static DataTable CreateInfoFactura()
+        private static DataTable RequireTable(DataSet ds, string tableName)
         {
-            var t = new DataTable("InfoFactura");
-            AddStringCols(t,
-                "fechaEmision", "dirEstablecimiento", "contribuyenteEspecial", "obligadoContabilidad",
-                "tipoIdentificacionComprador", "guiaRemision", "razonSocialComprador", "identificacionComprador", "direccionComprador",
-                "totalSinImpuestos", "totalDescuento", "propina", "importeTotal", "moneda",
-                "valorRetIva", "valorRetRenta", "comercioExterior",
-                "IncoTermFactura", "lugarIncoTerm", "paisOrigen", "puertoEmbarque", "paisDestino", "paisAdquisicion",
-                "incoTermTotalSinImpuestos", "fleteInternacional", "seguroInternacional",
-                "gastosAduaneros", "gastosTransporteOtros",
-                "codDocReembolso", "totalComprobantesReembolso", "totalBaseImponibleReembolso", "totalImpuestoReembolso");
-            return t;
-        }
-
-        private static DataTable CreateTotalConImpuestos()
-        {
-            var t = new DataTable("TotalConImpuestos");
-            AddStringCols(t, "codigo", "codigoPorcentaje", "baseImponible", "valor");
-            return t;
-        }
-
-        private static DataTable CreatePagos()
-        {
-            var t = new DataTable("Pagos");
-            AddStringCols(t, "formaPago", "total", "plazo", "unidadTiempo");
-            return t;
-        }
-
-        private static DataTable CreateDetalles()
-        {
-            var t = new DataTable("Detalles");
-            t.Columns.Add("detalleId", typeof(int));
-            AddStringCols(t, "codigoPrincipal", "codigoAuxiliar", "descripcion", "precioUnitario", "descuento", "precioTotalSinImpuesto");
-            t.Columns.Add("cantidad", typeof(decimal));
-            t.PrimaryKey = new[] { t.Columns["detalleId"] };
-            return t;
-        }
-
-        private static DataTable CreateDetallesAdicionales()
-        {
-            var t = new DataTable("DetallesAdicionales");
-            t.Columns.Add("detalleId", typeof(int));
-            AddStringCols(t, "nombre", "valor");
-            return t;
-        }
-
-        private static DataTable CreateDetallesImpuestos()
-        {
-            var t = new DataTable("DetallesImpuestos");
-            t.Columns.Add("detalleId", typeof(int));
-            AddStringCols(t, "codigo", "codigoPorcentaje", "baseImponible", "valor", "tarifa");
-            return t;
-        }
-
-        private static DataTable CreateRetenciones()
-        {
-            var t = new DataTable("Retenciones");
-            AddStringCols(t, "codigo", "codigoPorcentaje", "tarifa", "valor");
-            return t;
-        }
-
-        private static DataTable CreateInfoAdicional()
-        {
-            var t = new DataTable("InfoAdicional");
-            AddStringCols(t, "nombre", "valor");
-            return t;
-        }
-
-        private static DataTable CreateReembolsos()
-        {
-            var t = new DataTable("Reembolsos");
-            t.Columns.Add("reembolsoId", typeof(int));
-            AddStringCols(t,
-                "tipoIdentificacionProveedorReembolso", "identificacionProveedorReembolso", "codPaisPagoProveedorReembolso",
-                "tipoProveedorReembolso", "codDocReembolso", "estabDocReembolso", "ptoEmiDocReembolso",
-                "secuencialDocReembolso", "fechaEmisionDocReembolso", "numeroautorizacionDocReemb");
-            t.PrimaryKey = new[] { t.Columns["reembolsoId"] };
-            return t;
-        }
-
-        private static DataTable CreateReembolsoDetalleImpuestos()
-        {
-            var t = new DataTable("ReembolsoDetalleImpuestos");
-            t.Columns.Add("reembolsoId", typeof(int));
-            AddStringCols(t, "codigo", "codigoPorcentaje", "baseImponibleReembolso", "tarifa", "impuestoReembolso");
-            return t;
-        }
-
-        private static DataTable CreateCamposAdicionales()
-        {
-            var t = new DataTable("CamposAdicionales");
-            AddStringCols(t, "campoAdicional1", "campoAdicional2");
-            return t;
-        }
-
-        private static void AddStringCols(DataTable t, params string[] cols)
-        {
-            foreach (var c in cols) t.Columns.Add(c, typeof(string));
+            if (!ds.Tables.Contains(tableName))
+                throw new InvalidOperationException($"El DataSet no contiene la tabla requerida: '{tableName}'.");
+            return ds.Tables[tableName];
         }
 
         private static void Set(DataRow row, string column, object value)
         {
+            if (!row.Table.Columns.Contains(column))
+                throw new InvalidOperationException($"La tabla '{row.Table.TableName}' no contiene la columna: '{column}'.");
+
             row[column] = value ?? DBNull.Value;
         }
     }
