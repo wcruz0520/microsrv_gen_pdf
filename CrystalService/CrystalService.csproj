@@ -201,25 +201,42 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RenderController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Factura01.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Factura01.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Fomatos\Factura01.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Factura01.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Fomatos\GuiaRemision.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GuiaRemision.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Fomatos\NotaCredito.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotaCredito.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Fomatos\NotaDebito.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotaDebito.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\NotaDebitoRenderRequest.cs" />
+    <Compile Include="Models\NotaCreditoRenderRequest.cs" />
     <Compile Include="Models\FacturaRenderRequest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CodeImageService.cs" />
+    <Compile Include="Services\CrystalNotaCreditoRenderer.cs" />
     <Compile Include="Services\CrystalFacturaRenderer.cs" />
+    <Compile Include="Services\NotaDebitoDataSetBuilder.cs" />
+    <Compile Include="Services\NotaCreditoDataSetBuilder.cs" />
     <Compile Include="Services\FacturaDataSetBuilder.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -255,14 +272,56 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Fomatos\Factura01.xsc">
       <DependentUpon>Factura01.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Fomatos\Factura01.xsd">
+    <Content Include="Fomatos\Factura01.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>Factura01.Designer.cs</LastGenOutput>
-    </None>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Fomatos\Factura01.xss">
       <DependentUpon>Factura01.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fomatos\NotaCredito.xsc">
+      <DependentUpon>NotaCredito.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fomatos\NotaCredito.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>NotaCredito.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fomatos\NotaCredito.xss">
+      <DependentUpon>NotaCredito.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fomatos\NotaDebito.xsc">
+      <DependentUpon>NotaDebito.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fomatos\NotaDebito.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>NotaDebito.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fomatos\NotaDebito.xss">
+      <DependentUpon>NotaDebito.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fomatos\GuiaRemision.xsc">
+      <DependentUpon>GuiaRemision.xsd</DependentUpon>
+    </Content>
+    <None Include="Fomatos\GuiaRemision.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GuiaRemision.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Fomatos\GuiaRemision.xss">
+      <DependentUpon>GuiaRemision.xsd</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -321,12 +380,6 @@
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Factura01.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>Factura01.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -342,7 +395,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\</OutputPath>
+    <OutputPath>bin\x64\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>

@@ -10,29 +10,29 @@ using System.Web;
 
 namespace CrystalService.Services
 {
-    public class CrystalFacturaRenderer
+    public class CrystalNotaCreditoRenderer
     {
         private readonly string _rptPath;
         private readonly string _assetsDir;
         private readonly string _tempDir;
 
-        public CrystalFacturaRenderer(string rptPath, string assetsDir, string tempDir)
+        public CrystalNotaCreditoRenderer(string rptPath, string assetsDir, string tempDir)
         {
             _rptPath = rptPath;
             _assetsDir = assetsDir;
             _tempDir = tempDir;
         }
 
-        public byte[] RenderFactura01(FacturaRenderRequest req)
+        public byte[] RenderNotaCredito(NotaCreditoRenderRequest req)
         {
             if (!File.Exists(_rptPath))
                 throw new FileNotFoundException("No existe el .rpt", _rptPath);
 
-            DataSet dsFact = new DataSet();
-            dsFact.ReadXmlSchema(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fomatos", "Factura01.xsd"));
+            DataSet dsNc = new DataSet();
+            dsNc.ReadXmlSchema(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Fomatos", "NotaCredito.xsd"));
 
             // 1) Dataset
-            DataSet ds = FacturaDataSetBuilder.FillFactura01DataSet(dsFact, req);
+            DataSet ds = NotaCreditoDataSetBuilder.FillNotaCreditoDataSet(dsNc, req);
 
             // 2) Imágenes
             string logoPath = !string.IsNullOrWhiteSpace(req?.LogoPathOverride)
@@ -70,13 +70,13 @@ namespace CrystalService.Services
                 ReportDocument subtotalConImpuesto = report.Subreports["totalConImpuesto"];
                 subinfoAdicional.SetDataSource(ds.Tables["totalConImpuesto"]);
 
-                //asigna dataset para subreporte de pagos
-                ReportDocument subpagos = report.Subreports["pagos"];
-                subpagos.SetDataSource(ds.Tables["Pagos"]);
+                ////asigna dataset para subreporte de pagos
+                //ReportDocument subpagos = report.Subreports["pagos"];
+                //subpagos.SetDataSource(ds.Tables["Pagos"]);
 
-                //asigna dataset para subreporte de reembolso
-                ReportDocument subreembolso = report.Subreports["reembolso"];
-                subpagos.SetDataSource(ds);
+                ////asigna dataset para subreporte de reembolso
+                //ReportDocument subreembolso = report.Subreports["reembolso"];
+                //subpagos.SetDataSource(ds);
 
                 // Parámetros en el .rpt:
                 TrySetParam(report, "pLogoPath", logoPath);

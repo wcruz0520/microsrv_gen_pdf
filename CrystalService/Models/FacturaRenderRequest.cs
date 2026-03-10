@@ -42,6 +42,8 @@ namespace CrystalService.Models
         public string diaEmission { get; set; }
         public string mesEmission { get; set; }
         public string anioEmission { get; set; }
+        public string fechaAuto { get; set; }
+        public string horaAuto { get; set; }
     }
 
     public class InfoFactura

@@ -713,6 +713,10 @@ namespace CrystalService.Fomatos {
             
             private global::System.Data.DataColumn columnanioEmission;
             
+            private global::System.Data.DataColumn columnfechaAuto;
+            
+            private global::System.Data.DataColumn columnhoraAuto;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public InfoTributariaDataTable() {
@@ -860,6 +864,22 @@ namespace CrystalService.Fomatos {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn fechaAutoColumn {
+                get {
+                    return this.columnfechaAuto;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn horaAutoColumn {
+                get {
+                    return this.columnhoraAuto;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -895,7 +915,23 @@ namespace CrystalService.Fomatos {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public InfoTributariaRow AddInfoTributariaRow(string ambiente, string tipoEmision, string claveAcceso, string razonSocial, string nombreComercial, string ruc, string codDoc, string estab, string ptoEmi, string secuencial, string dirMatriz, string diaEmission, string mesEmission, string anioEmission) {
+            public InfoTributariaRow AddInfoTributariaRow(
+                        string ambiente, 
+                        string tipoEmision, 
+                        string claveAcceso, 
+                        string razonSocial, 
+                        string nombreComercial, 
+                        string ruc, 
+                        string codDoc, 
+                        string estab, 
+                        string ptoEmi, 
+                        string secuencial, 
+                        string dirMatriz, 
+                        string diaEmission, 
+                        string mesEmission, 
+                        string anioEmission, 
+                        string fechaAuto, 
+                        string horaAuto) {
                 InfoTributariaRow rowInfoTributariaRow = ((InfoTributariaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ambiente,
@@ -911,7 +947,9 @@ namespace CrystalService.Fomatos {
                         dirMatriz,
                         diaEmission,
                         mesEmission,
-                        anioEmission};
+                        anioEmission,
+                        fechaAuto,
+                        horaAuto};
                 rowInfoTributariaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowInfoTributariaRow);
                 return rowInfoTributariaRow;
@@ -948,6 +986,8 @@ namespace CrystalService.Fomatos {
                 this.columndiaEmission = base.Columns["diaEmission"];
                 this.columnmesEmission = base.Columns["mesEmission"];
                 this.columnanioEmission = base.Columns["anioEmission"];
+                this.columnfechaAuto = base.Columns["fechaAuto"];
+                this.columnhoraAuto = base.Columns["horaAuto"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -981,6 +1021,10 @@ namespace CrystalService.Fomatos {
                 base.Columns.Add(this.columnmesEmission);
                 this.columnanioEmission = new global::System.Data.DataColumn("anioEmission", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnanioEmission);
+                this.columnfechaAuto = new global::System.Data.DataColumn("fechaAuto", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnfechaAuto);
+                this.columnhoraAuto = new global::System.Data.DataColumn("horaAuto", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnhoraAuto);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5121,6 +5165,38 @@ namespace CrystalService.Fomatos {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string fechaAuto {
+                get {
+                    try {
+                        return ((string)(this[this.tableInfoTributaria.fechaAutoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'fechaAuto\' de la tabla \'InfoTributaria\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableInfoTributaria.fechaAutoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string horaAuto {
+                get {
+                    try {
+                        return ((string)(this[this.tableInfoTributaria.horaAutoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'horaAuto\' de la tabla \'InfoTributaria\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableInfoTributaria.horaAutoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsambienteNull() {
                 return this.IsNull(this.tableInfoTributaria.ambienteColumn);
             }
@@ -5285,6 +5361,30 @@ namespace CrystalService.Fomatos {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetanioEmissionNull() {
                 this[this.tableInfoTributaria.anioEmissionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsfechaAutoNull() {
+                return this.IsNull(this.tableInfoTributaria.fechaAutoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetfechaAutoNull() {
+                this[this.tableInfoTributaria.fechaAutoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IshoraAutoNull() {
+                return this.IsNull(this.tableInfoTributaria.horaAutoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SethoraAutoNull() {
+                this[this.tableInfoTributaria.horaAutoColumn] = global::System.Convert.DBNull;
             }
         }
         

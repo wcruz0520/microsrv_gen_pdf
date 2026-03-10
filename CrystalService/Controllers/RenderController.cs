@@ -13,7 +13,9 @@ namespace CrystalService.Controllers
 {
     public class RenderController : ApiController
     {
-        private static readonly string BaseDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "PlantillasPDF");
+        //private static readonly string BaseDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "PlantillasPDF");
+        //private static readonly string BaseDir = Path.Combine("C:/Users/WILLIAMC/Desktop", "PlantillasPDF");
+        private static readonly string BaseDir = Path.Combine("C:\\API-Facturacion\\FACTURACION_ELECTRONICA_SRI", "PlantillasPDF");
         //private static readonly string BaseDir = @"C:/API-Facturacion/FACTURACION_ELECTRONICA_SRI/PlantillasPDF/";
         //private static readonly string RptPath = Path.Combine(BaseDir, "Factura01.rpt");
         //private static readonly string AssetsDir = Path.Combine(BaseDir, "Assets");
@@ -25,12 +27,47 @@ namespace CrystalService.Controllers
         {
             try
             {
-                string RptPath = Path.Combine(BaseDir, request.infoTributaria.ruc, "Factura01.rpt");
+                string nombreRpt = request.campoAdicional2;
+                //string RptPath = Path.Combine(BaseDir, request.infoTributaria.ruc, "Factura01.rpt");
+                string RptPath = Path.Combine(BaseDir, request.infoTributaria.ruc, nombreRpt);
                 string AssetsDir = Path.Combine(BaseDir, request.infoTributaria.ruc, "Assets");
                 string TempDir = Path.Combine(BaseDir, request.infoTributaria.ruc, "Temp");
 
                 var renderer = new CrystalFacturaRenderer(RptPath, AssetsDir, TempDir);
                 byte[] pdf = renderer.RenderFactura01(request);
+
+                var resp = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new ByteArrayContent(pdf)
+                };
+                resp.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+                resp.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("inline")
+                {
+                    FileName = "factura.pdf"
+                };
+
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("render/notacredito")]
+        public HttpResponseMessage NotaCredito([FromBody] NotaCreditoRenderRequest request)
+        {
+            try
+            {
+                string nombreRpt = request.campoAdicional2;
+                //string RptPath = Path.Combine(BaseDir, request.infoTributaria.ruc, "Factura01.rpt");
+                string RptPath = Path.Combine(BaseDir, request.infoTributaria.ruc, nombreRpt);
+                string AssetsDir = Path.Combine(BaseDir, request.infoTributaria.ruc, "Assets");
+                string TempDir = Path.Combine(BaseDir, request.infoTributaria.ruc, "Temp");
+
+                var renderer = new CrystalNotaCreditoRenderer(RptPath, AssetsDir, TempDir);
+                byte[] pdf = renderer.RenderNotaCredito(request);
 
                 var resp = new HttpResponseMessage(HttpStatusCode.OK)
                 {

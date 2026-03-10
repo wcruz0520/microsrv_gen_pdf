@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 
 namespace CrystalService
@@ -15,9 +16,17 @@ namespace CrystalService
 
             using (WebApp.Start<Startup>(url: baseAddress))
             {
-                Console.WriteLine("CrystalService running on " + baseAddress);
-                Console.WriteLine("Press ENTER to stop...");
-                Console.ReadLine();
+                if (Environment.UserInteractive)
+                {
+                    Console.WriteLine("CrystalService running on " + baseAddress);
+                    Console.WriteLine("Press ENTER to stop...");
+                    Console.ReadLine();
+                }
+                else
+                {
+                    // Modo servicio (NSSM): mantener vivo el proceso
+                    Thread.Sleep(Timeout.Infinite);
+                }
             }
         }
     }
