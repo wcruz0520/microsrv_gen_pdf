@@ -76,7 +76,139 @@ namespace CrystalService.Controllers
                 resp.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
                 resp.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("inline")
                 {
-                    FileName = "factura.pdf"
+                    FileName = "notacredito.pdf"
+                };
+
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("render/notadebito")]
+        public HttpResponseMessage NotaDebito([FromBody] NotaDebitoRenderRequest request)
+        {
+            try
+            {
+                string nombreRpt = request.campoAdicional2;
+                //string RptPath = Path.Combine(BaseDir, request.infoTributaria.ruc, "Factura01.rpt");
+                string RptPath = Path.Combine(BaseDir, request.infoTributaria.ruc, nombreRpt);
+                string AssetsDir = Path.Combine(BaseDir, request.infoTributaria.ruc, "Assets");
+                string TempDir = Path.Combine(BaseDir, request.infoTributaria.ruc, "Temp");
+
+                var renderer = new CrystalNotaDebitoRenderer(RptPath, AssetsDir, TempDir);
+                byte[] pdf = renderer.RenderNotaDebito(request);
+
+                var resp = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new ByteArrayContent(pdf)
+                };
+                resp.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+                resp.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("inline")
+                {
+                    FileName = "notadebito.pdf"
+                };
+
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("render/guiaremision")]
+        public HttpResponseMessage GuiaRemision([FromBody] GuiaRemisionRenderRequest request)
+        {
+            try
+            {
+                string nombreRpt = request.campoAdicional2;
+                //string RptPath = Path.Combine(BaseDir, request.infoTributaria.ruc, "Factura01.rpt");
+                string RptPath = Path.Combine(BaseDir, request.infoTributaria.ruc, nombreRpt);
+                string AssetsDir = Path.Combine(BaseDir, request.infoTributaria.ruc, "Assets");
+                string TempDir = Path.Combine(BaseDir, request.infoTributaria.ruc, "Temp");
+
+                var renderer = new CrystalGuiaRemisionRenderer(RptPath, AssetsDir, TempDir);
+                byte[] pdf = renderer.RenderGuiaRemision(request);
+
+                var resp = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new ByteArrayContent(pdf)
+                };
+                resp.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+                resp.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("inline")
+                {
+                    FileName = "guiaremision.pdf"
+                };
+
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("render/retencion")]
+        public HttpResponseMessage Retencion([FromBody] RetencionRenderRequest request)
+        {
+            try
+            {
+                string nombreRpt = request.campoAdicional2;
+                //string RptPath = Path.Combine(BaseDir, request.infoTributaria.ruc, "Factura01.rpt");
+                string RptPath = Path.Combine(BaseDir, request.infoTributaria.ruc, nombreRpt);
+                string AssetsDir = Path.Combine(BaseDir, request.infoTributaria.ruc, "Assets");
+                string TempDir = Path.Combine(BaseDir, request.infoTributaria.ruc, "Temp");
+
+                var renderer = new CrystalRetencionRenderer(RptPath, AssetsDir, TempDir);
+                byte[] pdf = renderer.RenderRetencion(request);
+
+                var resp = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new ByteArrayContent(pdf)
+                };
+                resp.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+                resp.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("inline")
+                {
+                    FileName = "retencion.pdf"
+                };
+
+                return resp;
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("render/liquidacioncompra")]
+        public HttpResponseMessage LiquidacionCompra([FromBody] LiquidacionCompraRenderRequest request)
+        {
+            try
+            {
+                string nombreRpt = request.campoAdicional2;
+                //string RptPath = Path.Combine(BaseDir, request.infoTributaria.ruc, "Factura01.rpt");
+                string RptPath = Path.Combine(BaseDir, request.infoTributaria.ruc, nombreRpt);
+                string AssetsDir = Path.Combine(BaseDir, request.infoTributaria.ruc, "Assets");
+                string TempDir = Path.Combine(BaseDir, request.infoTributaria.ruc, "Temp");
+
+                var renderer = new CrystalLiquidacionCompraRenderer(RptPath, AssetsDir, TempDir);
+                byte[] pdf = renderer.RenderLiquidacionCompra(request);
+
+                var resp = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new ByteArrayContent(pdf)
+                };
+                resp.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+                resp.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("inline")
+                {
+                    FileName = "liquidacioncompra.pdf"
                 };
 
                 return resp;
