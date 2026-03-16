@@ -68,7 +68,7 @@ namespace CrystalService.Services
 
                 //asigna dataset para subreporte de totalConImpuesto
                 ReportDocument subtotalConImpuesto = report.Subreports["totalConImpuesto"];
-                subinfoAdicional.SetDataSource(ds.Tables["totalConImpuesto"]);
+                subinfoAdicional.SetDataSource(ds.Tables["Impuestos"]);
 
                 ////asigna dataset para subreporte de pagos
                 //ReportDocument subpagos = report.Subreports["pagos"];

@@ -1,58 +1,45 @@
 ﻿using CrystalService.Models;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
-using System.Linq;
-using System.Web;
 
 namespace CrystalService.Services
 {
     public static class NotaDebitoDataSetBuilder
     {
         /// <summary>
-        /// Llena un DataSet (ya creado por ti) con la data del request.
-        /// No crea el esquema: solo llena las tablas.
+        /// Llena un DataSet existente con la data del request de Nota de Débito.
         ///
-        /// Tablas esperadas (nombres exactos):
+        /// Tablas esperadas:
         /// - InfoTributaria
-        /// - infoNotaDebito
-        /// - TotalConImpuestos
+        /// - InfoNotaDebito
+        /// - Impuestos
         /// - Pagos
-        /// - Detalles
-        /// - DetallesAdicionales
-        /// - DetallesImpuestos
-        /// - Retenciones
+        /// - Motivos
         /// - InfoAdicional
-        /// - Reembolsos
-        /// - ReembolsoDetalleImpuestos
         /// - CamposAdicionales
         ///
-        /// Relaciones recomendadas (si las tienes):
-        /// - Detalles(detalleId) -> DetallesAdicionales(detalleId)
-        /// - Detalles(detalleId) -> DetallesImpuestos(detalleId)
-        /// - Reembolsos(reembolsoId) -> ReembolsoDetalleImpuestos(reembolsoId)
+        /// Relaciones esperadas:
+        /// - InfoNotaDebito(notadebitorowId) -> Impuestos(notadebitorowId)
+        /// - InfoNotaDebito(notadebitorowId) -> Pagos(notadebitorowId)
         /// </summary>
         public static DataSet FillNotaDebitoDataSet(DataSet ds, NotaDebitoRenderRequest req)
         {
             if (ds == null) throw new ArgumentNullException(nameof(ds));
             if (req == null) throw new ArgumentNullException(nameof(req));
 
-            // Limpia tablas si quieres comportamiento "fresh" por request
             ClearIfExists(ds, "InfoTributaria");
             ClearIfExists(ds, "InfoNotaDebito");
-            ClearIfExists(ds, "TotalConImpuestos");
-            ClearIfExists(ds, "Detalles");
-            ClearIfExists(ds, "DetallesAdicionales");
-            ClearIfExists(ds, "DetallesImpuestos");
+            ClearIfExists(ds, "Impuestos");
+            ClearIfExists(ds, "Pagos");
+            ClearIfExists(ds, "Motivos");
             ClearIfExists(ds, "InfoAdicional");
             ClearIfExists(ds, "CamposAdicionales");
 
-            // 1) InfoTributaria (1 fila)
+            // 1) InfoTributaria
             if (req.infoTributaria != null)
             {
-                var t = RequireTable(ds, "InfoTributaria");
-                var r = t.NewRow();
+                DataTable t = RequireTable(ds, "InfoTributaria");
+                DataRow r = t.NewRow();
 
                 Set(r, "ambiente", req.infoTributaria.ambiente);
                 Set(r, "tipoEmision", req.infoTributaria.tipoEmision);
@@ -68,19 +55,25 @@ namespace CrystalService.Services
                 Set(r, "diaEmission", req.infoTributaria.diaEmission);
                 Set(r, "mesEmission", req.infoTributaria.mesEmission);
                 Set(r, "anioEmission", req.infoTributaria.anioEmission);
-                Set(r, "fechaAuto", req.infoTributaria.fechaAuto);
-                Set(r, "horaAuto", req.infoTributaria.horaAuto);
+
+                if (t.Columns.Contains("fechaAuto"))
+                    Set(r, "fechaAuto", req.infoTributaria.fechaAuto);
+
+                if (t.Columns.Contains("horaAuto"))
+                    Set(r, "horaAuto", req.infoTributaria.horaAuto);
 
                 t.Rows.Add(r);
             }
 
-            // 2) infoNotaDebito (1 fila) + TotalConImpuestos + Pagos + Reembolsos
+            // 2) InfoNotaDebito + hijos
             if (req.infoNotaDebito != null)
             {
-                // infoNotaDebito (1)
-                var tInfo = RequireTable(ds, "InfoNotaDebito");
-                var rInfo = tInfo.NewRow();
+                const int notaDebitoRowId = 1;
 
+                DataTable tInfo = RequireTable(ds, "InfoNotaDebito");
+                DataRow rInfo = tInfo.NewRow();
+
+                Set(rInfo, "notadebitorowId", notaDebitoRowId);
                 Set(rInfo, "fechaEmision", req.infoNotaDebito.fechaEmision);
                 Set(rInfo, "dirEstablecimiento", req.infoNotaDebito.dirEstablecimiento);
                 Set(rInfo, "tipoIdentificacionComprador", req.infoNotaDebito.tipoIdentificacionComprador);
@@ -88,148 +81,127 @@ namespace CrystalService.Services
                 Set(rInfo, "identificacionComprador", req.infoNotaDebito.identificacionComprador);
                 Set(rInfo, "contribuyenteEspecial", req.infoNotaDebito.contribuyenteEspecial);
                 Set(rInfo, "obligadoContabilidad", req.infoNotaDebito.obligadoContabilidad);
-                Set(rInfo, "direccionComprador", req.infoNotaDebito.direccionComprador);
                 Set(rInfo, "codDocModificado", req.infoNotaDebito.codDocModificado);
                 Set(rInfo, "numDocModificado", req.infoNotaDebito.numDocModificado);
                 Set(rInfo, "fechaEmisionDocSustento", req.infoNotaDebito.fechaEmisionDocSustento);
                 Set(rInfo, "totalSinImpuestos", req.infoNotaDebito.totalSinImpuestos);
                 Set(rInfo, "valorTotal", req.infoNotaDebito.valorTotal);
+
+                if (tInfo.Columns.Contains("direccionComprador"))
+                    Set(rInfo, "direccionComprador", req.infoNotaDebito.direccionComprador);
+
                 tInfo.Rows.Add(rInfo);
 
-                // TotalConImpuestos (N)
-                if (req.infoNotaDebito.totalConImpuestos != null)
+                // 3) Impuestos
+                if (req.infoNotaDebito.impuestos != null)
                 {
-                    var t = RequireTable(ds, "TotalConImpuestos");
-                    foreach (var x in req.infoNotaDebito.totalConImpuestos)
+                    DataTable tImp = RequireTable(ds, "Impuestos");
+
+                    foreach (ImpuestoNotaDebitoNd imp in req.infoNotaDebito.impuestos)
                     {
-                        if (x == null) continue;
-                        var r = t.NewRow();
-                        Set(r, "codigo", x.codigo);
-                        Set(r, "codigoPorcentaje", x.codigoPorcentaje);
-                        Set(r, "baseImponible", x.baseImponible);
-                        Set(r, "valor", x.valor);
-                        t.Rows.Add(r);
+                        if (imp == null) continue;
+
+                        DataRow rImp = tImp.NewRow();
+                        Set(rImp, "notadebitorowId", notaDebitoRowId);
+                        Set(rImp, "codigo", imp.codigo);
+                        Set(rImp, "codigoPorcentaje", imp.codigoPorcentaje);
+                        Set(rImp, "baseImponible", imp.baseImponible);
+                        Set(rImp, "valor", imp.valor);
+
+                        if (tImp.Columns.Contains("tarifa"))
+                            Set(rImp, "tarifa", imp.tarifa);
+
+                        tImp.Rows.Add(rImp);
                     }
                 }
 
+                // 4) Pagos
                 if (req.infoNotaDebito.pagos != null)
                 {
-                    var t = RequireTable(ds, "Pagos");
-                    foreach (var p in req.infoNotaDebito.pagos)
+                    DataTable tPag = RequireTable(ds, "Pagos");
+
+                    foreach (PagoNotaDebitoNd pag in req.infoNotaDebito.pagos)
                     {
-                        if (p == null) continue;
-                        var r = t.NewRow();
-                        Set(r, "formaPago", p.formaPago);
-                        Set(r, "total", p.total);
-                        Set(r, "plazo", p.plazo);
-                        Set(r, "unidadTiempo", p.unidadTiempo);
-                        t.Rows.Add(r);
+                        if (pag == null) continue;
+
+                        DataRow rPag = tPag.NewRow();
+                        Set(rPag, "notadebitorowId", notaDebitoRowId);
+                        Set(rPag, "formaPago", pag.formaPago);
+                        Set(rPag, "total", pag.total);
+                        Set(rPag, "plazo", pag.plazo);
+                        Set(rPag, "unidadTiempo", pag.unidadTiempo);
+                        tPag.Rows.Add(rPag);
                     }
                 }
             }
 
-            // 3) Detalles (N) + hijos
-            var detalleId = 0;
-            if (req.detalles != null)
+            // 5) Motivos
+            if (req.motivos != null)
             {
-                var tDet = RequireTable(ds, "Detalles");
-                var tDetAdd = RequireTable(ds, "DetallesAdicionales");
-                var tDetImp = RequireTable(ds, "DetallesImpuestos");
+                DataTable tMot = RequireTable(ds, "Motivos");
 
-                foreach (var d in req.detalles)
+                foreach (MotivoNd mot in req.motivos)
                 {
-                    if (d == null) continue;
-                    detalleId++;
+                    if (mot == null) continue;
 
-                    var r = tDet.NewRow();
-                    Set(r, "detalleId", detalleId);
-                    Set(r, "codigoPrincipal", d.codigoPrincipal);
-                    Set(r, "codigoAuxiliar", d.codigoAuxiliar);
-                    Set(r, "descripcion", d.descripcion);
-                    Set(r, "cantidad", d.cantidad); // decimal
-                    Set(r, "precioUnitario", d.precioUnitario);
-                    Set(r, "descuento", d.descuento);
-                    Set(r, "precioTotalSinImpuesto", d.precioTotalSinImpuesto);
-                    tDet.Rows.Add(r);
-
-                    if (d.detallesAdicionales != null)
-                    {
-                        foreach (var a in d.detallesAdicionales)
-                        {
-                            if (a == null) continue;
-                            var ra = tDetAdd.NewRow();
-                            Set(ra, "detalleId", detalleId);
-                            Set(ra, "nombre", a.nombre);
-                            Set(ra, "valor", a.valor);
-                            tDetAdd.Rows.Add(ra);
-                        }
-                    }
-
-                    if (d.impuestos != null)
-                    {
-                        foreach (var i in d.impuestos)
-                        {
-                            if (i == null) continue;
-                            var ri = tDetImp.NewRow();
-                            Set(ri, "detalleId", detalleId);
-                            Set(ri, "codigo", i.codigo);
-                            Set(ri, "codigoPorcentaje", i.codigoPorcentaje);
-                            Set(ri, "baseImponible", i.baseImponible);
-                            Set(ri, "valor", i.valor);
-                            Set(ri, "tarifa", i.tarifa);
-                            tDetImp.Rows.Add(ri);
-                        }
-                    }
+                    DataRow rMot = tMot.NewRow();
+                    Set(rMot, "razon", mot.razon);
+                    Set(rMot, "valor", mot.valor);
+                    tMot.Rows.Add(rMot);
                 }
             }
 
-            
-            // 5) InfoAdicional
+            // 6) InfoAdicional
             if (req.infoAdicional != null)
             {
-                var t = RequireTable(ds, "InfoAdicional");
-                foreach (var x in req.infoAdicional)
+                DataTable tAd = RequireTable(ds, "InfoAdicional");
+
+                foreach (InfoAdicionalItemNd item in req.infoAdicional)
                 {
-                    if (x == null) continue;
-                    var r = t.NewRow();
-                    Set(r, "nombre", x.nombre);
-                    Set(r, "valor", x.valor);
-                    t.Rows.Add(r);
+                    if (item == null) continue;
+
+                    DataRow rAd = tAd.NewRow();
+                    Set(rAd, "nombre", item.nombre);
+                    Set(rAd, "valor", item.valor);
+                    tAd.Rows.Add(rAd);
                 }
             }
 
-            // 6) CamposAdicionales (1 fila)
+            // 7) CamposAdicionales
             {
-                var t = RequireTable(ds, "CamposAdicionales");
-                var r = t.NewRow();
-                Set(r, "campoAdicional1", req.campoAdicional1);
-                Set(r, "campoAdicional2", req.campoAdicional2);
-                t.Rows.Add(r);
+                DataTable tCampos = RequireTable(ds, "CamposAdicionales");
+                DataRow rCampos = tCampos.NewRow();
+
+                Set(rCampos, "campoAdicional1", req.campoAdicional1);
+                Set(rCampos, "campoAdicional2", req.campoAdicional2);
+
+                tCampos.Rows.Add(rCampos);
             }
 
             ds.AcceptChanges();
             return ds;
         }
 
-        // ----------------- Helpers -----------------
-
         private static void ClearIfExists(DataSet ds, string tableName)
         {
-            var t = ds.Tables.Contains(tableName) ? ds.Tables[tableName] : null;
-            t?.Rows.Clear();
+            if (ds.Tables.Contains(tableName))
+                ds.Tables[tableName].Rows.Clear();
         }
 
         private static DataTable RequireTable(DataSet ds, string tableName)
         {
             if (!ds.Tables.Contains(tableName))
-                throw new InvalidOperationException($"El DataSet no contiene la tabla requerida: '{tableName}'.");
+                throw new InvalidOperationException(
+                    "El DataSet no contiene la tabla requerida: '" + tableName + "'.");
+
             return ds.Tables[tableName];
         }
 
         private static void Set(DataRow row, string column, object value)
         {
             if (!row.Table.Columns.Contains(column))
-                throw new InvalidOperationException($"La tabla '{row.Table.TableName}' no contiene la columna: '{column}'.");
+                throw new InvalidOperationException(
+                    "La tabla '" + row.Table.TableName + "' no contiene la columna: '" + column + "'.");
 
             row[column] = value ?? DBNull.Value;
         }

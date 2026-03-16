@@ -1,29 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace CrystalService.Models
 {
     /// <summary>
-    /// Request para renderizar Factura 01 (Crystal). Modela la estructura completa del JSON.
-    /// Nota: Los nombres de propiedades se mantienen en camelCase para que el binding JSON
-    /// funcione sin configuraciones adicionales si tu serializer respeta los nombres.
+    /// Request para renderizar Nota de Débito.
+    /// Los nombres de propiedades se mantienen en camelCase para respetar el JSON recibido.
     /// </summary>
     public class NotaDebitoRenderRequest
     {
         public InfoTributariaNd infoTributaria { get; set; }
-
-        public infoNotaDebito infoNotaDebito { get; set; }
-
-        public List<DetalleNd> detalles { get; set; }
-
+        public InfoNotaDebitoNd infoNotaDebito { get; set; }
+        public List<MotivoNd> motivos { get; set; }
         public List<InfoAdicionalItemNd> infoAdicional { get; set; }
 
         public string campoAdicional1 { get; set; }
         public string campoAdicional2 { get; set; }
 
-        // Opcional: si quieres pasar el logo por ruta o usar el default del servidor
+        // Opcional
         public string LogoPathOverride { get; set; }
     }
 
@@ -43,11 +36,13 @@ namespace CrystalService.Models
         public string diaEmission { get; set; }
         public string mesEmission { get; set; }
         public string anioEmission { get; set; }
+
+        // Campos opcionales internos para Crystal/autorización, si los vas a usar
         public string fechaAuto { get; set; }
         public string horaAuto { get; set; }
     }
 
-    public class infoNotaDebito
+    public class InfoNotaDebitoNd
     {
         public string fechaEmision { get; set; }
         public string dirEstablecimiento { get; set; }
@@ -56,44 +51,19 @@ namespace CrystalService.Models
         public string identificacionComprador { get; set; }
         public string contribuyenteEspecial { get; set; }
         public string obligadoContabilidad { get; set; }
-        public string direccionComprador { get; set; }
         public string codDocModificado { get; set; }
         public string numDocModificado { get; set; }
         public string fechaEmisionDocSustento { get; set; }
         public string totalSinImpuestos { get; set; }
+        public List<ImpuestoNotaDebitoNd> impuestos { get; set; }
         public string valorTotal { get; set; }
-        public List<TotalConImpuestoNd> totalConImpuestos { get; set; }
-        public List<PagoNotaDebito> pagos { get; set; }
+        public List<PagoNotaDebitoNd> pagos { get; set; }
+
+        // Opcional, por si tu reporte lo usa
+        public string direccionComprador { get; set; }
     }
 
-    public class TotalConImpuestoNd
-    {
-        public string codigo { get; set; }
-        public string codigoPorcentaje { get; set; }
-        public string baseImponible { get; set; }
-        public string valor { get; set; }
-    }
-
-    public class DetalleNd
-    {
-        public string codigoPrincipal { get; set; }
-        public string codigoAuxiliar { get; set; }
-        public string descripcion { get; set; }
-        public decimal cantidad { get; set; }
-        public string precioUnitario { get; set; }
-        public string descuento { get; set; }
-        public string precioTotalSinImpuesto { get; set; }
-        public List<DetalleAdicionalNd> detallesAdicionales { get; set; }
-        public List<ImpuestoDetalleNd> impuestos { get; set; }
-    }
-
-    public class DetalleAdicionalNd
-    {
-        public string nombre { get; set; }
-        public string valor { get; set; }
-    }
-
-    public class ImpuestoDetalleNd
+    public class ImpuestoNotaDebitoNd
     {
         public string codigo { get; set; }
         public string codigoPorcentaje { get; set; }
@@ -102,12 +72,18 @@ namespace CrystalService.Models
         public string tarifa { get; set; }
     }
 
-    public class PagoNotaDebito
+    public class PagoNotaDebitoNd
     {
         public string formaPago { get; set; }
         public string total { get; set; }
         public string plazo { get; set; }
         public string unidadTiempo { get; set; }
+    }
+
+    public class MotivoNd
+    {
+        public string razon { get; set; }
+        public string valor { get; set; }
     }
 
     public class InfoAdicionalItemNd
