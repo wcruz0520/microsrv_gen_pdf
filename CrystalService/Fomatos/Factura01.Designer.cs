@@ -48,8 +48,6 @@ namespace CrystalService.Fomatos {
         
         private CamposAdicionalesDataTable tableCamposAdicionales;
         
-        private DetalleConsolidadoDataTable tableDetalleConsolidado;
-        
         private global::System.Data.DataRelation relationDetalles_DetallesAdicionales;
         
         private global::System.Data.DataRelation relationDetalles_DetallesImpuestos;
@@ -119,9 +117,6 @@ namespace CrystalService.Fomatos {
                 }
                 if ((ds.Tables["CamposAdicionales"] != null)) {
                     base.Tables.Add(new CamposAdicionalesDataTable(ds.Tables["CamposAdicionales"]));
-                }
-                if ((ds.Tables["DetalleConsolidado"] != null)) {
-                    base.Tables.Add(new DetalleConsolidadoDataTable(ds.Tables["DetalleConsolidado"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -263,16 +258,6 @@ namespace CrystalService.Fomatos {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Browsable(false)]
-        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public DetalleConsolidadoDataTable DetalleConsolidado {
-            get {
-                return this.tableDetalleConsolidado;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -373,9 +358,6 @@ namespace CrystalService.Fomatos {
                 }
                 if ((ds.Tables["CamposAdicionales"] != null)) {
                     base.Tables.Add(new CamposAdicionalesDataTable(ds.Tables["CamposAdicionales"]));
-                }
-                if ((ds.Tables["DetalleConsolidado"] != null)) {
-                    base.Tables.Add(new DetalleConsolidadoDataTable(ds.Tables["DetalleConsolidado"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -482,12 +464,6 @@ namespace CrystalService.Fomatos {
                     this.tableCamposAdicionales.InitVars();
                 }
             }
-            this.tableDetalleConsolidado = ((DetalleConsolidadoDataTable)(base.Tables["DetalleConsolidado"]));
-            if ((initTable == true)) {
-                if ((this.tableDetalleConsolidado != null)) {
-                    this.tableDetalleConsolidado.InitVars();
-                }
-            }
             this.relationDetalles_DetallesAdicionales = this.Relations["Detalles_DetallesAdicionales"];
             this.relationDetalles_DetallesImpuestos = this.Relations["Detalles_DetallesImpuestos"];
             this.relationReembolsos_ReembolsoDetalleImpuestos = this.Relations["Reembolsos_ReembolsoDetalleImpuestos"];
@@ -525,8 +501,6 @@ namespace CrystalService.Fomatos {
             base.Tables.Add(this.tableReembolsoDetalleImpuestos);
             this.tableCamposAdicionales = new CamposAdicionalesDataTable();
             base.Tables.Add(this.tableCamposAdicionales);
-            this.tableDetalleConsolidado = new DetalleConsolidadoDataTable();
-            base.Tables.Add(this.tableDetalleConsolidado);
             this.relationDetalles_DetallesAdicionales = new global::System.Data.DataRelation("Detalles_DetallesAdicionales", new global::System.Data.DataColumn[] {
                         this.tableDetalles.detalleIdColumn}, new global::System.Data.DataColumn[] {
                         this.tableDetallesAdicionales.detalleIdColumn}, false);
@@ -610,12 +584,6 @@ namespace CrystalService.Fomatos {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private bool ShouldSerializeCamposAdicionales() {
-            return false;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeDetalleConsolidado() {
             return false;
         }
         
@@ -709,9 +677,6 @@ namespace CrystalService.Fomatos {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public delegate void CamposAdicionalesRowChangeEventHandler(object sender, CamposAdicionalesRowChangeEvent e);
-        
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void DetalleConsolidadoRowChangeEventHandler(object sender, DetalleConsolidadoRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -2500,6 +2465,18 @@ namespace CrystalService.Fomatos {
             
             private global::System.Data.DataColumn columnprecioTotalSinImpuesto;
             
+            private global::System.Data.DataColumn columnadicional1Nombre;
+            
+            private global::System.Data.DataColumn columnadicional1Valor;
+            
+            private global::System.Data.DataColumn columnadicional2Nombre;
+            
+            private global::System.Data.DataColumn columnadicional2Valor;
+            
+            private global::System.Data.DataColumn columnadicional3Nombre;
+            
+            private global::System.Data.DataColumn columnadicional3Valor;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DetallesDataTable() {
@@ -2599,6 +2576,54 @@ namespace CrystalService.Fomatos {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn adicional1NombreColumn {
+                get {
+                    return this.columnadicional1Nombre;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn adicional1ValorColumn {
+                get {
+                    return this.columnadicional1Valor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn adicional2NombreColumn {
+                get {
+                    return this.columnadicional2Nombre;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn adicional2ValorColumn {
+                get {
+                    return this.columnadicional2Valor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn adicional3NombreColumn {
+                get {
+                    return this.columnadicional3Nombre;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn adicional3ValorColumn {
+                get {
+                    return this.columnadicional3Valor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2634,7 +2659,7 @@ namespace CrystalService.Fomatos {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DetallesRow AddDetallesRow(int detalleId, string codigoPrincipal, string codigoAuxiliar, string descripcion, decimal cantidad, string precioUnitario, string descuento, string precioTotalSinImpuesto) {
+            public DetallesRow AddDetallesRow(int detalleId, string codigoPrincipal, string codigoAuxiliar, string descripcion, decimal cantidad, string precioUnitario, string descuento, string precioTotalSinImpuesto, string adicional1Nombre, string adicional1Valor, string adicional2Nombre, string adicional2Valor, string adicional3Nombre, string adicional3Valor) {
                 DetallesRow rowDetallesRow = ((DetallesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         detalleId,
@@ -2644,7 +2669,13 @@ namespace CrystalService.Fomatos {
                         cantidad,
                         precioUnitario,
                         descuento,
-                        precioTotalSinImpuesto};
+                        precioTotalSinImpuesto,
+                        adicional1Nombre,
+                        adicional1Valor,
+                        adicional2Nombre,
+                        adicional2Valor,
+                        adicional3Nombre,
+                        adicional3Valor};
                 rowDetallesRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDetallesRow);
                 return rowDetallesRow;
@@ -2682,6 +2713,12 @@ namespace CrystalService.Fomatos {
                 this.columnprecioUnitario = base.Columns["precioUnitario"];
                 this.columndescuento = base.Columns["descuento"];
                 this.columnprecioTotalSinImpuesto = base.Columns["precioTotalSinImpuesto"];
+                this.columnadicional1Nombre = base.Columns["adicional1Nombre"];
+                this.columnadicional1Valor = base.Columns["adicional1Valor"];
+                this.columnadicional2Nombre = base.Columns["adicional2Nombre"];
+                this.columnadicional2Valor = base.Columns["adicional2Valor"];
+                this.columnadicional3Nombre = base.Columns["adicional3Nombre"];
+                this.columnadicional3Valor = base.Columns["adicional3Valor"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2703,6 +2740,18 @@ namespace CrystalService.Fomatos {
                 base.Columns.Add(this.columndescuento);
                 this.columnprecioTotalSinImpuesto = new global::System.Data.DataColumn("precioTotalSinImpuesto", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnprecioTotalSinImpuesto);
+                this.columnadicional1Nombre = new global::System.Data.DataColumn("adicional1Nombre", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnadicional1Nombre);
+                this.columnadicional1Valor = new global::System.Data.DataColumn("adicional1Valor", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnadicional1Valor);
+                this.columnadicional2Nombre = new global::System.Data.DataColumn("adicional2Nombre", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnadicional2Nombre);
+                this.columnadicional2Valor = new global::System.Data.DataColumn("adicional2Valor", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnadicional2Valor);
+                this.columnadicional3Nombre = new global::System.Data.DataColumn("adicional3Nombre", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnadicional3Nombre);
+                this.columnadicional3Valor = new global::System.Data.DataColumn("adicional3Valor", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnadicional3Valor);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columndetalleId}, true));
                 this.columndetalleId.AllowDBNull = false;
@@ -4961,449 +5010,6 @@ namespace CrystalService.Fomatos {
         }
         
         /// <summary>
-        ///Represents the strongly named DataTable class.
-        ///</summary>
-        [global::System.Serializable()]
-        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class DetalleConsolidadoDataTable : global::System.Data.TypedTableBase<DetalleConsolidadoRow> {
-            
-            private global::System.Data.DataColumn columncodigoPrincipal;
-            
-            private global::System.Data.DataColumn columncodigoAuxiliar;
-            
-            private global::System.Data.DataColumn columndescripcion;
-            
-            private global::System.Data.DataColumn columncantidad;
-            
-            private global::System.Data.DataColumn columnprecioUnitario;
-            
-            private global::System.Data.DataColumn columndescuento;
-            
-            private global::System.Data.DataColumn columnprecioTotalSinImpuesto;
-            
-            private global::System.Data.DataColumn columncodigo;
-            
-            private global::System.Data.DataColumn columncodigoPorcentaje;
-            
-            private global::System.Data.DataColumn columnbaseImponible;
-            
-            private global::System.Data.DataColumn columnvalor;
-            
-            private global::System.Data.DataColumn columntarifa;
-            
-            private global::System.Data.DataColumn columndetalleAdicional1;
-            
-            private global::System.Data.DataColumn columndetalleAdicional2;
-            
-            private global::System.Data.DataColumn columndetalleAdicional3;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DetalleConsolidadoDataTable() {
-                this.TableName = "DetalleConsolidado";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal DetalleConsolidadoDataTable(global::System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected DetalleConsolidadoDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn codigoPrincipalColumn {
-                get {
-                    return this.columncodigoPrincipal;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn codigoAuxiliarColumn {
-                get {
-                    return this.columncodigoAuxiliar;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn descripcionColumn {
-                get {
-                    return this.columndescripcion;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn cantidadColumn {
-                get {
-                    return this.columncantidad;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn precioUnitarioColumn {
-                get {
-                    return this.columnprecioUnitario;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn descuentoColumn {
-                get {
-                    return this.columndescuento;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn precioTotalSinImpuestoColumn {
-                get {
-                    return this.columnprecioTotalSinImpuesto;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn codigoColumn {
-                get {
-                    return this.columncodigo;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn codigoPorcentajeColumn {
-                get {
-                    return this.columncodigoPorcentaje;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn baseImponibleColumn {
-                get {
-                    return this.columnbaseImponible;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn valorColumn {
-                get {
-                    return this.columnvalor;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn tarifaColumn {
-                get {
-                    return this.columntarifa;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn detalleAdicional1Column {
-                get {
-                    return this.columndetalleAdicional1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn detalleAdicional2Column {
-                get {
-                    return this.columndetalleAdicional2;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn detalleAdicional3Column {
-                get {
-                    return this.columndetalleAdicional3;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            [global::System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DetalleConsolidadoRow this[int index] {
-                get {
-                    return ((DetalleConsolidadoRow)(this.Rows[index]));
-                }
-            }
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event DetalleConsolidadoRowChangeEventHandler DetalleConsolidadoRowChanging;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event DetalleConsolidadoRowChangeEventHandler DetalleConsolidadoRowChanged;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event DetalleConsolidadoRowChangeEventHandler DetalleConsolidadoRowDeleting;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event DetalleConsolidadoRowChangeEventHandler DetalleConsolidadoRowDeleted;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddDetalleConsolidadoRow(DetalleConsolidadoRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DetalleConsolidadoRow AddDetalleConsolidadoRow(string codigoPrincipal, string codigoAuxiliar, string descripcion, string cantidad, string precioUnitario, string descuento, string precioTotalSinImpuesto, string codigo, string codigoPorcentaje, string baseImponible, string valor, string tarifa, string detalleAdicional1, string detalleAdicional2, string detalleAdicional3) {
-                DetalleConsolidadoRow rowDetalleConsolidadoRow = ((DetalleConsolidadoRow)(this.NewRow()));
-                object[] columnValuesArray = new object[] {
-                        codigoPrincipal,
-                        codigoAuxiliar,
-                        descripcion,
-                        cantidad,
-                        precioUnitario,
-                        descuento,
-                        precioTotalSinImpuesto,
-                        codigo,
-                        codigoPorcentaje,
-                        baseImponible,
-                        valor,
-                        tarifa,
-                        detalleAdicional1,
-                        detalleAdicional2,
-                        detalleAdicional3};
-                rowDetalleConsolidadoRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowDetalleConsolidadoRow);
-                return rowDetalleConsolidadoRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public override global::System.Data.DataTable Clone() {
-                DetalleConsolidadoDataTable cln = ((DetalleConsolidadoDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override global::System.Data.DataTable CreateInstance() {
-                return new DetalleConsolidadoDataTable();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal void InitVars() {
-                this.columncodigoPrincipal = base.Columns["codigoPrincipal"];
-                this.columncodigoAuxiliar = base.Columns["codigoAuxiliar"];
-                this.columndescripcion = base.Columns["descripcion"];
-                this.columncantidad = base.Columns["cantidad"];
-                this.columnprecioUnitario = base.Columns["precioUnitario"];
-                this.columndescuento = base.Columns["descuento"];
-                this.columnprecioTotalSinImpuesto = base.Columns["precioTotalSinImpuesto"];
-                this.columncodigo = base.Columns["codigo"];
-                this.columncodigoPorcentaje = base.Columns["codigoPorcentaje"];
-                this.columnbaseImponible = base.Columns["baseImponible"];
-                this.columnvalor = base.Columns["valor"];
-                this.columntarifa = base.Columns["tarifa"];
-                this.columndetalleAdicional1 = base.Columns["detalleAdicional1"];
-                this.columndetalleAdicional2 = base.Columns["detalleAdicional2"];
-                this.columndetalleAdicional3 = base.Columns["detalleAdicional3"];
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            private void InitClass() {
-                this.columncodigoPrincipal = new global::System.Data.DataColumn("codigoPrincipal", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncodigoPrincipal);
-                this.columncodigoAuxiliar = new global::System.Data.DataColumn("codigoAuxiliar", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncodigoAuxiliar);
-                this.columndescripcion = new global::System.Data.DataColumn("descripcion", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columndescripcion);
-                this.columncantidad = new global::System.Data.DataColumn("cantidad", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncantidad);
-                this.columnprecioUnitario = new global::System.Data.DataColumn("precioUnitario", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnprecioUnitario);
-                this.columndescuento = new global::System.Data.DataColumn("descuento", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columndescuento);
-                this.columnprecioTotalSinImpuesto = new global::System.Data.DataColumn("precioTotalSinImpuesto", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnprecioTotalSinImpuesto);
-                this.columncodigo = new global::System.Data.DataColumn("codigo", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncodigo);
-                this.columncodigoPorcentaje = new global::System.Data.DataColumn("codigoPorcentaje", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncodigoPorcentaje);
-                this.columnbaseImponible = new global::System.Data.DataColumn("baseImponible", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnbaseImponible);
-                this.columnvalor = new global::System.Data.DataColumn("valor", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnvalor);
-                this.columntarifa = new global::System.Data.DataColumn("tarifa", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columntarifa);
-                this.columndetalleAdicional1 = new global::System.Data.DataColumn("detalleAdicional1", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columndetalleAdicional1);
-                this.columndetalleAdicional2 = new global::System.Data.DataColumn("detalleAdicional2", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columndetalleAdicional2);
-                this.columndetalleAdicional3 = new global::System.Data.DataColumn("detalleAdicional3", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columndetalleAdicional3);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DetalleConsolidadoRow NewDetalleConsolidadoRow() {
-                return ((DetalleConsolidadoRow)(this.NewRow()));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new DetalleConsolidadoRow(builder);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override global::System.Type GetRowType() {
-                return typeof(DetalleConsolidadoRow);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.DetalleConsolidadoRowChanged != null)) {
-                    this.DetalleConsolidadoRowChanged(this, new DetalleConsolidadoRowChangeEvent(((DetalleConsolidadoRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.DetalleConsolidadoRowChanging != null)) {
-                    this.DetalleConsolidadoRowChanging(this, new DetalleConsolidadoRowChangeEvent(((DetalleConsolidadoRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.DetalleConsolidadoRowDeleted != null)) {
-                    this.DetalleConsolidadoRowDeleted(this, new DetalleConsolidadoRowChangeEvent(((DetalleConsolidadoRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.DetalleConsolidadoRowDeleting != null)) {
-                    this.DetalleConsolidadoRowDeleting(this, new DetalleConsolidadoRowChangeEvent(((DetalleConsolidadoRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveDetalleConsolidadoRow(DetalleConsolidadoRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
-                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                Factura01 ds = new Factura01();
-                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "DetalleConsolidadoDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-                if (xs.Contains(dsSchema.TargetNamespace)) {
-                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
-                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                    try {
-                        global::System.Xml.Schema.XmlSchema schema = null;
-                        dsSchema.Write(s1);
-                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
-                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
-                            s2.SetLength(0);
-                            schema.Write(s2);
-                            if ((s1.Length == s2.Length)) {
-                                s1.Position = 0;
-                                s2.Position = 0;
-                                for (; ((s1.Position != s1.Length) 
-                                            && (s1.ReadByte() == s2.ReadByte())); ) {
-                                    ;
-                                }
-                                if ((s1.Position == s1.Length)) {
-                                    return type;
-                                }
-                            }
-                        }
-                    }
-                    finally {
-                        if ((s1 != null)) {
-                            s1.Close();
-                        }
-                        if ((s2 != null)) {
-                            s2.Close();
-                        }
-                    }
-                }
-                xs.Add(dsSchema);
-                return type;
-            }
-        }
-        
-        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class InfoTributariaRow : global::System.Data.DataRow {
@@ -7184,6 +6790,102 @@ namespace CrystalService.Fomatos {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string adicional1Nombre {
+                get {
+                    try {
+                        return ((string)(this[this.tableDetalles.adicional1NombreColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'adicional1Nombre\' de la tabla \'Detalles\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDetalles.adicional1NombreColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string adicional1Valor {
+                get {
+                    try {
+                        return ((string)(this[this.tableDetalles.adicional1ValorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'adicional1Valor\' de la tabla \'Detalles\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDetalles.adicional1ValorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string adicional2Nombre {
+                get {
+                    try {
+                        return ((string)(this[this.tableDetalles.adicional2NombreColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'adicional2Nombre\' de la tabla \'Detalles\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDetalles.adicional2NombreColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string adicional2Valor {
+                get {
+                    try {
+                        return ((string)(this[this.tableDetalles.adicional2ValorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'adicional2Valor\' de la tabla \'Detalles\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDetalles.adicional2ValorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string adicional3Nombre {
+                get {
+                    try {
+                        return ((string)(this[this.tableDetalles.adicional3NombreColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'adicional3Nombre\' de la tabla \'Detalles\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDetalles.adicional3NombreColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string adicional3Valor {
+                get {
+                    try {
+                        return ((string)(this[this.tableDetalles.adicional3ValorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'adicional3Valor\' de la tabla \'Detalles\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDetalles.adicional3ValorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IscodigoPrincipalNull() {
                 return this.IsNull(this.tableDetalles.codigoPrincipalColumn);
             }
@@ -7264,6 +6966,78 @@ namespace CrystalService.Fomatos {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetprecioTotalSinImpuestoNull() {
                 this[this.tableDetalles.precioTotalSinImpuestoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isadicional1NombreNull() {
+                return this.IsNull(this.tableDetalles.adicional1NombreColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setadicional1NombreNull() {
+                this[this.tableDetalles.adicional1NombreColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isadicional1ValorNull() {
+                return this.IsNull(this.tableDetalles.adicional1ValorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setadicional1ValorNull() {
+                this[this.tableDetalles.adicional1ValorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isadicional2NombreNull() {
+                return this.IsNull(this.tableDetalles.adicional2NombreColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setadicional2NombreNull() {
+                this[this.tableDetalles.adicional2NombreColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isadicional2ValorNull() {
+                return this.IsNull(this.tableDetalles.adicional2ValorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setadicional2ValorNull() {
+                this[this.tableDetalles.adicional2ValorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isadicional3NombreNull() {
+                return this.IsNull(this.tableDetalles.adicional3NombreColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setadicional3NombreNull() {
+                this[this.tableDetalles.adicional3NombreColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isadicional3ValorNull() {
+                return this.IsNull(this.tableDetalles.adicional3ValorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setadicional3ValorNull() {
+                this[this.tableDetalles.adicional3ValorColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8391,450 +8165,6 @@ namespace CrystalService.Fomatos {
         }
         
         /// <summary>
-        ///Represents strongly named DataRow class.
-        ///</summary>
-        public partial class DetalleConsolidadoRow : global::System.Data.DataRow {
-            
-            private DetalleConsolidadoDataTable tableDetalleConsolidado;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal DetalleConsolidadoRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableDetalleConsolidado = ((DetalleConsolidadoDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string codigoPrincipal {
-                get {
-                    try {
-                        return ((string)(this[this.tableDetalleConsolidado.codigoPrincipalColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'codigoPrincipal\' de la tabla \'DetalleConsolidado\' es DBNu" +
-                                "ll.", e);
-                    }
-                }
-                set {
-                    this[this.tableDetalleConsolidado.codigoPrincipalColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string codigoAuxiliar {
-                get {
-                    try {
-                        return ((string)(this[this.tableDetalleConsolidado.codigoAuxiliarColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'codigoAuxiliar\' de la tabla \'DetalleConsolidado\' es DBNul" +
-                                "l.", e);
-                    }
-                }
-                set {
-                    this[this.tableDetalleConsolidado.codigoAuxiliarColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string descripcion {
-                get {
-                    try {
-                        return ((string)(this[this.tableDetalleConsolidado.descripcionColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'descripcion\' de la tabla \'DetalleConsolidado\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDetalleConsolidado.descripcionColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string cantidad {
-                get {
-                    try {
-                        return ((string)(this[this.tableDetalleConsolidado.cantidadColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'cantidad\' de la tabla \'DetalleConsolidado\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDetalleConsolidado.cantidadColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string precioUnitario {
-                get {
-                    try {
-                        return ((string)(this[this.tableDetalleConsolidado.precioUnitarioColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'precioUnitario\' de la tabla \'DetalleConsolidado\' es DBNul" +
-                                "l.", e);
-                    }
-                }
-                set {
-                    this[this.tableDetalleConsolidado.precioUnitarioColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string descuento {
-                get {
-                    try {
-                        return ((string)(this[this.tableDetalleConsolidado.descuentoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'descuento\' de la tabla \'DetalleConsolidado\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDetalleConsolidado.descuentoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string precioTotalSinImpuesto {
-                get {
-                    try {
-                        return ((string)(this[this.tableDetalleConsolidado.precioTotalSinImpuestoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'precioTotalSinImpuesto\' de la tabla \'DetalleConsolidado\' " +
-                                "es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDetalleConsolidado.precioTotalSinImpuestoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string codigo {
-                get {
-                    try {
-                        return ((string)(this[this.tableDetalleConsolidado.codigoColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'codigo\' de la tabla \'DetalleConsolidado\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDetalleConsolidado.codigoColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string codigoPorcentaje {
-                get {
-                    try {
-                        return ((string)(this[this.tableDetalleConsolidado.codigoPorcentajeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'codigoPorcentaje\' de la tabla \'DetalleConsolidado\' es DBN" +
-                                "ull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDetalleConsolidado.codigoPorcentajeColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string baseImponible {
-                get {
-                    try {
-                        return ((string)(this[this.tableDetalleConsolidado.baseImponibleColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'baseImponible\' de la tabla \'DetalleConsolidado\' es DBNull" +
-                                ".", e);
-                    }
-                }
-                set {
-                    this[this.tableDetalleConsolidado.baseImponibleColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string valor {
-                get {
-                    try {
-                        return ((string)(this[this.tableDetalleConsolidado.valorColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'valor\' de la tabla \'DetalleConsolidado\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDetalleConsolidado.valorColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string tarifa {
-                get {
-                    try {
-                        return ((string)(this[this.tableDetalleConsolidado.tarifaColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'tarifa\' de la tabla \'DetalleConsolidado\' es DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDetalleConsolidado.tarifaColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string detalleAdicional1 {
-                get {
-                    try {
-                        return ((string)(this[this.tableDetalleConsolidado.detalleAdicional1Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'detalleAdicional1\' de la tabla \'DetalleConsolidado\' es DB" +
-                                "Null.", e);
-                    }
-                }
-                set {
-                    this[this.tableDetalleConsolidado.detalleAdicional1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string detalleAdicional2 {
-                get {
-                    try {
-                        return ((string)(this[this.tableDetalleConsolidado.detalleAdicional2Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'detalleAdicional2\' de la tabla \'DetalleConsolidado\' es DB" +
-                                "Null.", e);
-                    }
-                }
-                set {
-                    this[this.tableDetalleConsolidado.detalleAdicional2Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string detalleAdicional3 {
-                get {
-                    try {
-                        return ((string)(this[this.tableDetalleConsolidado.detalleAdicional3Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("El valor de la columna \'detalleAdicional3\' de la tabla \'DetalleConsolidado\' es DB" +
-                                "Null.", e);
-                    }
-                }
-                set {
-                    this[this.tableDetalleConsolidado.detalleAdicional3Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IscodigoPrincipalNull() {
-                return this.IsNull(this.tableDetalleConsolidado.codigoPrincipalColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetcodigoPrincipalNull() {
-                this[this.tableDetalleConsolidado.codigoPrincipalColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IscodigoAuxiliarNull() {
-                return this.IsNull(this.tableDetalleConsolidado.codigoAuxiliarColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetcodigoAuxiliarNull() {
-                this[this.tableDetalleConsolidado.codigoAuxiliarColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsdescripcionNull() {
-                return this.IsNull(this.tableDetalleConsolidado.descripcionColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetdescripcionNull() {
-                this[this.tableDetalleConsolidado.descripcionColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IscantidadNull() {
-                return this.IsNull(this.tableDetalleConsolidado.cantidadColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetcantidadNull() {
-                this[this.tableDetalleConsolidado.cantidadColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsprecioUnitarioNull() {
-                return this.IsNull(this.tableDetalleConsolidado.precioUnitarioColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetprecioUnitarioNull() {
-                this[this.tableDetalleConsolidado.precioUnitarioColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsdescuentoNull() {
-                return this.IsNull(this.tableDetalleConsolidado.descuentoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetdescuentoNull() {
-                this[this.tableDetalleConsolidado.descuentoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsprecioTotalSinImpuestoNull() {
-                return this.IsNull(this.tableDetalleConsolidado.precioTotalSinImpuestoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetprecioTotalSinImpuestoNull() {
-                this[this.tableDetalleConsolidado.precioTotalSinImpuestoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IscodigoNull() {
-                return this.IsNull(this.tableDetalleConsolidado.codigoColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetcodigoNull() {
-                this[this.tableDetalleConsolidado.codigoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IscodigoPorcentajeNull() {
-                return this.IsNull(this.tableDetalleConsolidado.codigoPorcentajeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetcodigoPorcentajeNull() {
-                this[this.tableDetalleConsolidado.codigoPorcentajeColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsbaseImponibleNull() {
-                return this.IsNull(this.tableDetalleConsolidado.baseImponibleColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetbaseImponibleNull() {
-                this[this.tableDetalleConsolidado.baseImponibleColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsvalorNull() {
-                return this.IsNull(this.tableDetalleConsolidado.valorColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetvalorNull() {
-                this[this.tableDetalleConsolidado.valorColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IstarifaNull() {
-                return this.IsNull(this.tableDetalleConsolidado.tarifaColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SettarifaNull() {
-                this[this.tableDetalleConsolidado.tarifaColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsdetalleAdicional1Null() {
-                return this.IsNull(this.tableDetalleConsolidado.detalleAdicional1Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetdetalleAdicional1Null() {
-                this[this.tableDetalleConsolidado.detalleAdicional1Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsdetalleAdicional2Null() {
-                return this.IsNull(this.tableDetalleConsolidado.detalleAdicional2Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetdetalleAdicional2Null() {
-                this[this.tableDetalleConsolidado.detalleAdicional2Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsdetalleAdicional3Null() {
-                return this.IsNull(this.tableDetalleConsolidado.detalleAdicional3Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetdetalleAdicional3Null() {
-                this[this.tableDetalleConsolidado.detalleAdicional3Column] = global::System.Convert.DBNull;
-            }
-        }
-        
-        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -9228,40 +8558,6 @@ namespace CrystalService.Fomatos {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public CamposAdicionalesRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        /// <summary>
-        ///Row event argument class
-        ///</summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class DetalleConsolidadoRowChangeEvent : global::System.EventArgs {
-            
-            private DetalleConsolidadoRow eventRow;
-            
-            private global::System.Data.DataRowAction eventAction;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DetalleConsolidadoRowChangeEvent(DetalleConsolidadoRow row, global::System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DetalleConsolidadoRow Row {
                 get {
                     return this.eventRow;
                 }
