@@ -9,7 +9,7 @@
     <Shape ID="DesignTable:InfoTributaria" ZOrder="4" X="0" Y="144" Height="239" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="235" />
     <Shape ID="DesignTable:InfoGuiaRemision" ZOrder="9" X="176" Y="150" Height="220" Width="205" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="216" />
     <Shape ID="DesignTable:DetallesAdicionales" ZOrder="8" X="813" Y="158" Height="68" Width="179" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
-    <Shape ID="DesignTable:Detalles" ZOrder="6" X="616" Y="260" Height="143" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="139" />
+    <Shape ID="DesignTable:Detalles" ZOrder="6" X="616" Y="260" Height="361" Width="209" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="357" />
     <Shape ID="DesignTable:InfoAdicional" ZOrder="7" X="425" Y="429" Height="49" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="45" />
     <Shape ID="DesignTable:CamposAdicionales" ZOrder="5" X="426" Y="519" Height="49" Width="178" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="45" />
     <Shape ID="DesignTable:destinatarios" ZOrder="3" X="391" Y="158" Height="239" Width="183" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="235" />
@@ -34,15 +34,15 @@
     <Connector ID="DesignRelation:Detalles_DetallesAdicionales" ZOrder="1" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>766</X>
-          <Y>290</Y>
-        </Point>
-        <Point>
           <X>825</X>
           <Y>290</Y>
         </Point>
         <Point>
-          <X>825</X>
+          <X>833</X>
+          <Y>290</Y>
+        </Point>
+        <Point>
+          <X>833</X>
           <Y>226</Y>
         </Point>
       </RoutePoints>

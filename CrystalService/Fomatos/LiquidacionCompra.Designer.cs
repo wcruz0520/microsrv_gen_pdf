@@ -2220,6 +2220,18 @@ namespace CrystalService.Fomatos {
             
             private global::System.Data.DataColumn columnunidadMedida;
             
+            private global::System.Data.DataColumn columnadicional1Nombre;
+            
+            private global::System.Data.DataColumn columnadicional1Valor;
+            
+            private global::System.Data.DataColumn columnadicional2Nombre;
+            
+            private global::System.Data.DataColumn columnadicional2Valor;
+            
+            private global::System.Data.DataColumn columnadicional3Nombre;
+            
+            private global::System.Data.DataColumn columnadicional3Valor;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DetallesDataTable() {
@@ -2327,6 +2339,54 @@ namespace CrystalService.Fomatos {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn adicional1NombreColumn {
+                get {
+                    return this.columnadicional1Nombre;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn adicional1ValorColumn {
+                get {
+                    return this.columnadicional1Valor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn adicional2NombreColumn {
+                get {
+                    return this.columnadicional2Nombre;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn adicional2ValorColumn {
+                get {
+                    return this.columnadicional2Valor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn adicional3NombreColumn {
+                get {
+                    return this.columnadicional3Nombre;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn adicional3ValorColumn {
+                get {
+                    return this.columnadicional3Valor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2362,7 +2422,7 @@ namespace CrystalService.Fomatos {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DetallesRow AddDetallesRow(int detalleId, string codigoPrincipal, string codigoAuxiliar, string descripcion, decimal cantidad, string precioUnitario, string descuento, string precioTotalSinImpuesto, string unidadMedida) {
+            public DetallesRow AddDetallesRow(int detalleId, string codigoPrincipal, string codigoAuxiliar, string descripcion, decimal cantidad, string precioUnitario, string descuento, string precioTotalSinImpuesto, string unidadMedida, string adicional1Nombre, string adicional1Valor, string adicional2Nombre, string adicional2Valor, string adicional3Nombre, string adicional3Valor) {
                 DetallesRow rowDetallesRow = ((DetallesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         detalleId,
@@ -2373,7 +2433,13 @@ namespace CrystalService.Fomatos {
                         precioUnitario,
                         descuento,
                         precioTotalSinImpuesto,
-                        unidadMedida};
+                        unidadMedida,
+                        adicional1Nombre,
+                        adicional1Valor,
+                        adicional2Nombre,
+                        adicional2Valor,
+                        adicional3Nombre,
+                        adicional3Valor};
                 rowDetallesRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDetallesRow);
                 return rowDetallesRow;
@@ -2412,6 +2478,12 @@ namespace CrystalService.Fomatos {
                 this.columndescuento = base.Columns["descuento"];
                 this.columnprecioTotalSinImpuesto = base.Columns["precioTotalSinImpuesto"];
                 this.columnunidadMedida = base.Columns["unidadMedida"];
+                this.columnadicional1Nombre = base.Columns["adicional1Nombre"];
+                this.columnadicional1Valor = base.Columns["adicional1Valor"];
+                this.columnadicional2Nombre = base.Columns["adicional2Nombre"];
+                this.columnadicional2Valor = base.Columns["adicional2Valor"];
+                this.columnadicional3Nombre = base.Columns["adicional3Nombre"];
+                this.columnadicional3Valor = base.Columns["adicional3Valor"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2435,6 +2507,18 @@ namespace CrystalService.Fomatos {
                 base.Columns.Add(this.columnprecioTotalSinImpuesto);
                 this.columnunidadMedida = new global::System.Data.DataColumn("unidadMedida", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnunidadMedida);
+                this.columnadicional1Nombre = new global::System.Data.DataColumn("adicional1Nombre", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnadicional1Nombre);
+                this.columnadicional1Valor = new global::System.Data.DataColumn("adicional1Valor", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnadicional1Valor);
+                this.columnadicional2Nombre = new global::System.Data.DataColumn("adicional2Nombre", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnadicional2Nombre);
+                this.columnadicional2Valor = new global::System.Data.DataColumn("adicional2Valor", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnadicional2Valor);
+                this.columnadicional3Nombre = new global::System.Data.DataColumn("adicional3Nombre", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnadicional3Nombre);
+                this.columnadicional3Valor = new global::System.Data.DataColumn("adicional3Valor", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnadicional3Valor);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columndetalleId}, true));
                 this.columndetalleId.AllowDBNull = false;
@@ -5813,6 +5897,102 @@ namespace CrystalService.Fomatos {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string adicional1Nombre {
+                get {
+                    try {
+                        return ((string)(this[this.tableDetalles.adicional1NombreColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'adicional1Nombre\' de la tabla \'Detalles\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDetalles.adicional1NombreColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string adicional1Valor {
+                get {
+                    try {
+                        return ((string)(this[this.tableDetalles.adicional1ValorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'adicional1Valor\' de la tabla \'Detalles\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDetalles.adicional1ValorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string adicional2Nombre {
+                get {
+                    try {
+                        return ((string)(this[this.tableDetalles.adicional2NombreColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'adicional2Nombre\' de la tabla \'Detalles\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDetalles.adicional2NombreColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string adicional2Valor {
+                get {
+                    try {
+                        return ((string)(this[this.tableDetalles.adicional2ValorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'adicional2Valor\' de la tabla \'Detalles\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDetalles.adicional2ValorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string adicional3Nombre {
+                get {
+                    try {
+                        return ((string)(this[this.tableDetalles.adicional3NombreColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'adicional3Nombre\' de la tabla \'Detalles\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDetalles.adicional3NombreColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string adicional3Valor {
+                get {
+                    try {
+                        return ((string)(this[this.tableDetalles.adicional3ValorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'adicional3Valor\' de la tabla \'Detalles\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDetalles.adicional3ValorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IscodigoPrincipalNull() {
                 return this.IsNull(this.tableDetalles.codigoPrincipalColumn);
             }
@@ -5905,6 +6085,78 @@ namespace CrystalService.Fomatos {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetunidadMedidaNull() {
                 this[this.tableDetalles.unidadMedidaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isadicional1NombreNull() {
+                return this.IsNull(this.tableDetalles.adicional1NombreColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setadicional1NombreNull() {
+                this[this.tableDetalles.adicional1NombreColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isadicional1ValorNull() {
+                return this.IsNull(this.tableDetalles.adicional1ValorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setadicional1ValorNull() {
+                this[this.tableDetalles.adicional1ValorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isadicional2NombreNull() {
+                return this.IsNull(this.tableDetalles.adicional2NombreColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setadicional2NombreNull() {
+                this[this.tableDetalles.adicional2NombreColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isadicional2ValorNull() {
+                return this.IsNull(this.tableDetalles.adicional2ValorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setadicional2ValorNull() {
+                this[this.tableDetalles.adicional2ValorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isadicional3NombreNull() {
+                return this.IsNull(this.tableDetalles.adicional3NombreColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setadicional3NombreNull() {
+                this[this.tableDetalles.adicional3NombreColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isadicional3ValorNull() {
+                return this.IsNull(this.tableDetalles.adicional3ValorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setadicional3ValorNull() {
+                this[this.tableDetalles.adicional3ValorColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

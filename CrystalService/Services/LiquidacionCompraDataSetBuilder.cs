@@ -1,6 +1,8 @@
 ﻿using CrystalService.Models;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace CrystalService.Services
 {
@@ -136,20 +138,25 @@ namespace CrystalService.Services
                     Set(rDet, "descuento", det.descuento);
                     Set(rDet, "precioTotalSinImpuesto", det.precioTotalSinImpuesto);
                     Set(rDet, "unidadMedida", det.unidadMedida);
+
+                    var detallesAdicionales = (det.detallesAdicionales ?? new List<DetalleAdicionalLq>())
+                        .Where(x => x != null)
+                        .Take(3)
+                        .ToList();
+
+                    SetDetalleAdicionalColumnas(rDet, 1, detallesAdicionales.ElementAtOrDefault(0));
+                    SetDetalleAdicionalColumnas(rDet, 2, detallesAdicionales.ElementAtOrDefault(1));
+                    SetDetalleAdicionalColumnas(rDet, 3, detallesAdicionales.ElementAtOrDefault(2));
+
                     tDet.Rows.Add(rDet);
 
-                    if (det.detallesAdicionales != null)
+                    if (detallesAdicionales.Any())
                     {
-                        foreach (var add in det.detallesAdicionales)
-                        {
-                            if (add == null) continue;
-
-                            var rAdd = tDetAdd.NewRow();
-                            Set(rAdd, "detalleId", detalleId);
-                            Set(rAdd, "nombre", add.nombre);
-                            Set(rAdd, "valor", add.valor);
-                            tDetAdd.Rows.Add(rAdd);
-                        }
+                        var rAdd = tDetAdd.NewRow();
+                        Set(rAdd, "detalleId", detalleId);
+                        Set(rAdd, "nombre", detallesAdicionales[0].nombre);
+                        Set(rAdd, "valor", detallesAdicionales[0].valor);
+                        tDetAdd.Rows.Add(rAdd);
                     }
 
                     if (det.impuestos != null)
@@ -248,6 +255,12 @@ namespace CrystalService.Services
 
             ds.AcceptChanges();
             return ds;
+        }
+
+        private static void SetDetalleAdicionalColumnas(DataRow detalleRow, int indice, DetalleAdicionalLq adicional)
+        {
+            Set(detalleRow, $"adicional{indice}Nombre", adicional?.nombre);
+            Set(detalleRow, $"adicional{indice}Valor", adicional?.valor);
         }
 
         private static void ClearIfExists(DataSet ds, string tableName)

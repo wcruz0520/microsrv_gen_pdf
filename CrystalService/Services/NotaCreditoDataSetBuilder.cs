@@ -138,19 +138,25 @@ namespace CrystalService.Services
                     Set(r, "precioUnitario", d.precioUnitario);
                     Set(r, "descuento", d.descuento);
                     Set(r, "precioTotalSinImpuesto", d.precioTotalSinImpuesto);
+
+                    var detallesAdicionales = (d.detallesAdicionales ?? new List<DetalleAdicionalNc>())
+                        .Where(x => x != null)
+                        .Take(3)
+                        .ToList();
+
+                    SetDetalleAdicionalColumnas(r, 1, detallesAdicionales.ElementAtOrDefault(0));
+                    SetDetalleAdicionalColumnas(r, 2, detallesAdicionales.ElementAtOrDefault(1));
+                    SetDetalleAdicionalColumnas(r, 3, detallesAdicionales.ElementAtOrDefault(2));
+
                     tDet.Rows.Add(r);
 
-                    if (d.detallesAdicionales != null)
+                    if (detallesAdicionales.Any())
                     {
-                        foreach (var a in d.detallesAdicionales)
-                        {
-                            if (a == null) continue;
-                            var ra = tDetAdd.NewRow();
-                            Set(ra, "detalleId", detalleId);
-                            Set(ra, "nombre", a.nombre);
-                            Set(ra, "valor", a.valor);
-                            tDetAdd.Rows.Add(ra);
-                        }
+                        var ra = tDetAdd.NewRow();
+                        Set(ra, "detalleId", detalleId);
+                        Set(ra, "nombre", detallesAdicionales[0].nombre);
+                        Set(ra, "valor", detallesAdicionales[0].valor);
+                        tDetAdd.Rows.Add(ra);
                     }
 
                     if (d.impuestos != null)
@@ -200,6 +206,12 @@ namespace CrystalService.Services
         }
 
         // ----------------- Helpers -----------------
+
+        private static void SetDetalleAdicionalColumnas(DataRow detalleRow, int indice, DetalleAdicionalNc adicional)
+        {
+            Set(detalleRow, $"adicional{indice}Nombre", adicional?.nombre);
+            Set(detalleRow, $"adicional{indice}Valor", adicional?.valor);
+        }
 
         private static void ClearIfExists(DataSet ds, string tableName)
         {
